@@ -1,4 +1,9 @@
-# Prez UI v4 Theme Starter Template
+# GA Prez4 Theme
+
+Theming of [PrezUI](https://github.com/RDFLib/prez-ui) for [Geoscience Australia](https://www.ga.gov.au).
+
+---
+
 This project was bootstrapped by `create-prez-app`.
 
 ## Quick start
