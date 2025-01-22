@@ -1,0 +1,27 @@
+body {
+    color: hsl(var(--secondary));
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+a:not(.bg-primary) {
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:not(footer a):not(th a) {
+    color: hsl(var(--primary));
+}
+
+thead th {
+    background-color: hsl(var(--primary));
+    color: white !important;
+}
