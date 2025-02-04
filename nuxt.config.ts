@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt"],
     extends: [
-        "prez-ui-test"
+        "prez-ui"
     ],
     app: {
         head: {
