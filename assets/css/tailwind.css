@@ -5,9 +5,12 @@
 @layer base {
     :root {
         --primary: 191 100% 27%;
+        --primary-foreground: 0 0% 100%;
         --secondary: 200 78% 14%;
         --secondary-foreground: 0 0% 100%;
         --ice: 193 22% 92%;
         --ice-foreground: var(--secondary);
+        --link: var(--primary);
+        --link-foreground: 0 0% 100%;
     }
 }

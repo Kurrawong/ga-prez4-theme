@@ -7,6 +7,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
 }
 
 a:not(.bg-primary) {
@@ -14,11 +15,7 @@ a:not(.bg-primary) {
 }
 
 a:hover {
-    text-decoration: none;
-}
-
-a:not(footer a):not(th a) {
-    color: hsl(var(--primary));
+    text-decoration: none !important;
 }
 
 thead th {
