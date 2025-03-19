@@ -50,6 +50,7 @@ jobs:
         run: |
           pnpm generate
           zip -r prod-${REPO_NAME}-prez-ui-static-assets.zip .output/public
+          ls -la prod-${REPO_NAME}-prez-ui-static-assets.zip
           rm -rf .output
         env:
           NUXT_PUBLIC_PREZ_API_ENDPOINT: ${{ vars.PROD_ENDPOINT }}
@@ -59,6 +60,7 @@ jobs:
         run: |
           pnpm generate
           zip -r dev-${REPO_NAME}-prez-ui-static-assets.zip .output/public
+          ls -la dev-${REPO_NAME}-prez-ui-static-assets.zip
         env:
           NUXT_PUBLIC_PREZ_API_ENDPOINT: ${{ vars.DEV_ENDPOINT }}
 
@@ -81,7 +83,10 @@ jobs:
       # Step 7: Upload static assets as a release asset
       - name: Upload static assets as release asset
         uses: softprops/action-gh-release@v1
+        if: success()
         with:
-          files: prod-${REPO_NAME}-prez-ui-static-assets.zip,dev-${REPO_NAME}-prez-ui-static-assets.zip
+          files: |
+            prod-${{ env.REPO_NAME }}-prez-ui-static-assets.zip
+            dev-${{ env.REPO_NAME }}-prez-ui-static-assets.zip
           tag_name: ${{ env.release_tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
