@@ -39,7 +39,12 @@ jobs:
               exit 1
             fi
           else
-            DEPLOY_VERSION=${{ inputs.version }}
+            DEPLOY_VERSION="${{ inputs.version }}"
+          fi
+          # Verify we have a version
+          if [ -z "${DEPLOY_VERSION}" ]; then
+            echo "::error::No version specified and couldn't get latest version"
+            exit 1
           fi
           echo "deploy_version=${DEPLOY_VERSION}" >> $GITHUB_ENV
           echo "Selected version: ${DEPLOY_VERSION}"
@@ -67,6 +72,7 @@ jobs:
           ASSET_NAME="${PREFIX}-prez-ui-static-assets.zip"
           DOWNLOAD_URL="https://github.com/${{ github.repository }}/releases/download/${DEPLOY_VERSION}/${ASSET_NAME}"
           
+          echo "Using version: ${DEPLOY_VERSION}"
           echo "Attempting to download from: ${DOWNLOAD_URL}"
           # Add -f flag to fail on HTTP errors, and check file size after download
           curl -fLJO "${DOWNLOAD_URL}" || {
