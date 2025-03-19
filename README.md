@@ -4,9 +4,11 @@ Theming of [PrezUI](https://github.com/RDFLib/prez-ui) for [Geoscience Australia
 
 ---
 
-## Release Process
+## Administration processes
 
-See [ReleaseProcess.md](ReleaseProcess.md) for the release process.
+See:
+- [Release Process](ReleaseProcess.md)
+- [Commit Conventions and Semantic Versioning](CommitConventions.md)
 
 ---
 
