@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout contentonly>
         <template #default>
-            <h1 class="text-3xl font-bold mt-4 mb-4">Geoscience Australia Vocabularies</h1>
+            <h1 class="text-3xl mt-4 mb-4">Geoscience Australia Vocabularies</h1>
             <p class="mb-4">Welcome to GA's public vocabulary system. This tool is an instance of VocPrez, a read-only web delivery system for Simple Knowledge Organization System (SKOS)-formulated RDF vocabularies.</p>
             <p class="mb-4">This is the static register (index) of GA's vocabularies. Its purpose is to present the static URIs to each of GA's vocabs. This is particularly useful for machines that wish to automatically index our vocabularies, rather than humans who can search for them manually.</p>
             <h2 class="text-2xl font-bold mt-4 mb-2">About the Vocabularies</h2>

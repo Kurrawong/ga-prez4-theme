@@ -15,6 +15,10 @@ module.exports = {
                     DEFAULT: "hsl(var(--ice))",
                     foreground: "hsl(var(--ice-foreground))",
                 },
+                link: {
+                    DEFAULT: "hsl(var(--link))",
+                    foreground: "hsl(var(--link-foreground))",
+                },
             },
         },
     },
