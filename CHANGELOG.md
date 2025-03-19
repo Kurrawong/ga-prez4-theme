@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.0.0...v1.0.1) (2025-03-19)
+
+
+### Bug Fixes
+
+* add additional logging ([316bed7](https://github.com/Kurrawong/ga-prez4-theme/commit/316bed74a78aa3a618016f5b188c8db774d3b506))
+* attach deploy assets ([1303df5](https://github.com/Kurrawong/ga-prez4-theme/commit/1303df50dadbc1edc9cd259661272cf4308ae082))
+
 # 1.0.0 (2025-03-19)
 
 
