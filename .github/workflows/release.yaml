@@ -48,9 +48,13 @@ jobs:
       # Step 4: Generate PROD assets
       - name: Generate PROD assets
         run: |
+          echo "Generating PROD assets..."
           pnpm generate
-          zip -r prod-${REPO_NAME}-prez-ui-static-assets.zip .output/public
+          echo "Creating PROD zip file..."
+          zip -rv prod-${REPO_NAME}-prez-ui-static-assets.zip .output/public
+          echo "PROD zip file details:"
           ls -la prod-${REPO_NAME}-prez-ui-static-assets.zip
+          echo "Cleaning up..."
           rm -rf .output
         env:
           NUXT_PUBLIC_PREZ_API_ENDPOINT: ${{ vars.PROD_ENDPOINT }}
@@ -58,9 +62,14 @@ jobs:
       # Step 5: Generate DEV assets
       - name: Generate DEV assets
         run: |
+          echo "Generating DEV assets..."
           pnpm generate
-          zip -r dev-${REPO_NAME}-prez-ui-static-assets.zip .output/public
+          echo "Creating DEV zip file..."
+          zip -rv dev-${REPO_NAME}-prez-ui-static-assets.zip .output/public
+          echo "DEV zip file details:"
           ls -la dev-${REPO_NAME}-prez-ui-static-assets.zip
+          echo "Current directory contents:"
+          ls -la
         env:
           NUXT_PUBLIC_PREZ_API_ENDPOINT: ${{ vars.DEV_ENDPOINT }}
 
@@ -90,3 +99,5 @@ jobs:
             dev-${{ env.REPO_NAME }}-prez-ui-static-assets.zip
           tag_name: ${{ env.release_tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
