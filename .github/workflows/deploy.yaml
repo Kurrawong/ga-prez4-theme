@@ -70,9 +70,9 @@ jobs:
           REPO_NAME=$(echo ${GITHUB_REPOSITORY} | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
           PREFIX="${{ inputs.environment }}-${REPO_NAME}"
           ASSET_NAME="${PREFIX}-prez-ui-static-assets.zip"
-          DOWNLOAD_URL="https://github.com/${{ github.repository }}/releases/download/${DEPLOY_VERSION}/${ASSET_NAME}"
+          DOWNLOAD_URL="https://github.com/${{ github.repository }}/releases/download/${{ env.deploy_version }}/${ASSET_NAME}"
           
-          echo "Using version: ${DEPLOY_VERSION}"
+          echo "Using version: ${{ env.deploy_version }}"
           echo "Attempting to download from: ${DOWNLOAD_URL}"
           # Add -f flag to fail on HTTP errors, and check file size after download
           curl -fLJO "${DOWNLOAD_URL}" || {
