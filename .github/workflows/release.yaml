@@ -51,7 +51,7 @@ jobs:
           echo "Generating PROD assets..."
           pnpm generate
           echo "Creating PROD zip file..."
-          zip -rv prod-${REPO_NAME}-prez-ui-static-assets.zip .output/public
+          cd .output/public && zip -rv ../../prod-${REPO_NAME}-prez-ui-static-assets.zip . && cd ../../
           echo "PROD zip file details:"
           ls -la prod-${REPO_NAME}-prez-ui-static-assets.zip
           echo "Cleaning up..."
@@ -65,7 +65,7 @@ jobs:
           echo "Generating DEV assets..."
           pnpm generate
           echo "Creating DEV zip file..."
-          zip -rv dev-${REPO_NAME}-prez-ui-static-assets.zip .output/public
+          cd .output/public && zip -rv ../../dev-${REPO_NAME}-prez-ui-static-assets.zip . && cd ../../
           echo "DEV zip file details:"
           ls -la dev-${REPO_NAME}-prez-ui-static-assets.zip
           echo "Current directory contents:"
