@@ -1,13 +1,4 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
 
-npx --no -- commitlint --edit ${1} 
-
-# Create the commit-msg hook file
-echo '#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-npx --no -- commitlint --edit ${1}' > .husky/commit-msg
-
-# Make it executable
-chmod +x .husky/commit-msg 
+npx --no -- commitlint --edit "$1"
