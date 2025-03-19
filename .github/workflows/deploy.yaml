@@ -1,0 +1,41 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
+      version:
+        description: 'Version to deploy (leave empty for latest)'
+        required: false
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Get deployment version
+        id: get_version
+        run: |
+          if [ -z "${{ inputs.version }}" ]; then
+            # If no version specified, get latest
+            DEPLOY_VERSION=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .tag_name)
+          else
+            DEPLOY_VERSION=${{ inputs.version }}
+          fi
+          echo "deploy_version=${DEPLOY_VERSION}" >> $GITHUB_ENV
+          echo "Selected version: ${DEPLOY_VERSION}"
+
+      - name: Download release assets
+        run: |
+          PREFIX="${{ inputs.environment }}-${{ github.event.repository.name }}"
+          ASSET_NAME="${PREFIX}-prez-ui-static-assets.zip"
+          curl -LJO "https://github.com/${{ github.repository }}/releases/download/${DEPLOY_VERSION}/${ASSET_NAME}"
+
+      # Add your actual deployment steps here 

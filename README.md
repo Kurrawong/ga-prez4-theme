@@ -4,6 +4,12 @@ Theming of [PrezUI](https://github.com/RDFLib/prez-ui) for [Geoscience Australia
 
 ---
 
+## Release Process
+
+See [ReleaseProcess.md](ReleaseProcess.md) for the release process.
+
+---
+
 This project was bootstrapped by `create-prez-app`.
 
 ## Quick start

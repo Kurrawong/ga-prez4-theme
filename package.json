@@ -7,7 +7,10 @@
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "postinstall": "nuxt prepare"
+        "postinstall": "nuxt prepare",
+        "prepare": "husky",
+        "semantic-release": "semantic-release",
+        "semantic-release:dry": "semantic-release --dry-run"
     },
     "dependencies": {
         "@nuxtjs/tailwindcss": "^6.12.2",
@@ -25,7 +28,15 @@
         "vue-router": "latest"
     },
     "devDependencies": {
+        "@commitlint/cli": "^19.8.0",
+        "@commitlint/config-conventional": "^19.8.0",
+        "@semantic-release/changelog": "^6.0.3",
+        "@semantic-release/git": "^10.0.1",
+        "@semantic-release/npm": "^12.0.1",
+        "husky": "^9.1.7",
         "prez-ui": "^4.0.0",
+        "semantic-release": "^24.2.3",
         "typescript": "^5.6.3"
-    }
+    },
+    "version": "0.0.1"
 }
