@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.0.2...v1.0.3) (2025-03-19)
+
+
+### Bug Fixes
+
+* download zip asset issue ([69d6b5a](https://github.com/Kurrawong/ga-prez4-theme/commit/69d6b5a2944a26ded77668d627c8efbec8a56406))
+
 ## [1.0.2](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.0.1...v1.0.2) (2025-03-19)
 
 
