@@ -34,7 +34,8 @@ jobs:
 
       - name: Download release assets
         run: |
-          PREFIX="${{ inputs.environment }}-${{ github.event.repository.name }}"
+          REPO_NAME=$(echo ${GITHUB_REPOSITORY} | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
+          PREFIX="${{ inputs.environment }}-${REPO_NAME}"
           ASSET_NAME="${PREFIX}-prez-ui-static-assets.zip"
           curl -LJO "https://github.com/${{ github.repository }}/releases/download/${DEPLOY_VERSION}/${ASSET_NAME}"
 

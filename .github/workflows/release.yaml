@@ -37,7 +37,9 @@ jobs:
 
       - name: Set lowercase repository name
         run: |
-          echo "REPO_NAME=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV          
+          # Get just the repo name (after the /) and convert to lowercase
+          REPO_NAME=$(echo ${GITHUB_REPOSITORY} | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
+          echo "REPO_NAME=${REPO_NAME}" >> $GITHUB_ENV          
 
       # Step 3: Install dependencies
       - name: Install dependencies
@@ -47,7 +49,7 @@ jobs:
       - name: Generate PROD assets
         run: |
           pnpm generate
-          zip -r prod-${{ env.REPO_NAME }}-prez-ui-static-assets.zip .output/public
+          zip -r prod-${REPO_NAME}-prez-ui-static-assets.zip .output/public
           rm -rf .output
         env:
           NUXT_PUBLIC_PREZ_API_ENDPOINT: ${{ vars.PROD_ENDPOINT }}
@@ -56,7 +58,7 @@ jobs:
       - name: Generate DEV assets
         run: |
           pnpm generate
-          zip -r dev-${{ env.REPO_NAME }}-prez-ui-static-assets.zip .output/public
+          zip -r dev-${REPO_NAME}-prez-ui-static-assets.zip .output/public
         env:
           NUXT_PUBLIC_PREZ_API_ENDPOINT: ${{ vars.DEV_ENDPOINT }}
 
@@ -80,6 +82,6 @@ jobs:
       - name: Upload static assets as release asset
         uses: softprops/action-gh-release@v1
         with:
-          files: prod-${{ env.REPO_NAME }}-prez-ui-static-assets.zip,dev-${{ env.REPO_NAME }}-prez-ui-static-assets.zip
+          files: prod-${REPO_NAME}-prez-ui-static-assets.zip,dev-${REPO_NAME}-prez-ui-static-assets.zip
           tag_name: ${{ env.release_tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
