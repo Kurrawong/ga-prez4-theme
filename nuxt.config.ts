@@ -6,6 +6,11 @@ export default defineNuxtConfig({
     extends: [
         "prez-ui"
     ],
+    vite: {
+        optimizeDeps: {
+            include: ["@triply/yasgui"]
+        }
+    },
     app: {
         head: {
             title: "GA Vocabulary Register",
