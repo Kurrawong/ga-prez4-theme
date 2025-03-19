@@ -74,29 +74,35 @@ jobs:
           
           echo "Using version: ${{ env.deploy_version }}"
           echo "Attempting to download from: ${DOWNLOAD_URL}"
-          # Add -f flag to fail on HTTP errors, and check file size after download
-          curl -fLJO "${DOWNLOAD_URL}" || {
-            echo "::error::Failed to download ${ASSET_NAME} from release ${DEPLOY_VERSION}"
+          
+          # Download with error handling
+          if ! curl -fLJO "${DOWNLOAD_URL}"; then
+            echo "::error::Failed to download ${ASSET_NAME} from release ${{ env.deploy_version }}"
             exit 1
-          }
+          fi
           
           # Verify file size is reasonable (more than 1KB)
           if [ ! -s "${ASSET_NAME}" ] || [ $(stat -f%z "${ASSET_NAME}") -lt 1024 ]; then
-            echo "::error::Downloaded file is too small or empty. Release assets may not exist for version ${DEPLOY_VERSION}"
+            echo "::error::Downloaded file is too small or empty. Release assets may not exist for version ${{ env.deploy_version }}"
             exit 1
-          }
+          fi
           
           echo "Extracting assets..."
           rm -rf extracted_assets || true
           mkdir -p extracted_assets
-          unzip -t "${ASSET_NAME}" || {
+          
+          # Test zip file validity
+          if ! unzip -t "${ASSET_NAME}"; then
             echo "::error::Downloaded file is not a valid zip archive"
             exit 1
-          }
-          unzip -q "${ASSET_NAME}" -d extracted_assets || {
+          fi
+          
+          # Extract files
+          if ! unzip -q "${ASSET_NAME}" -d extracted_assets; then
             echo "::error::Failed to extract ${ASSET_NAME}"
             exit 1
-          }
+          fi
+          
           echo "Successfully downloaded and extracted ${ASSET_NAME}"
 
       - name: Configure AWS Credentials
