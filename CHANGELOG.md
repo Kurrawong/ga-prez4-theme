@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.0.1...v1.0.2) (2025-03-19)
+
+
+### Bug Fixes
+
+* update release zip and deploy to s3 ([41ea97f](https://github.com/Kurrawong/ga-prez4-theme/commit/41ea97fdf2ae9463d591f1fce97a7070493f1dae))
+
 ## [1.0.1](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.0.0...v1.0.1) (2025-03-19)
 
 
