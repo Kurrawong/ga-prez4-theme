@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.0.3...v1.1.0) (2025-03-24)
+
+
+### Features
+
+* manual deploy check ([2dabfe9](https://github.com/Kurrawong/ga-prez4-theme/commit/2dabfe9c16c0652e2d6d370891971a2ee584c1c6))
+
 ## [1.0.3](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.0.2...v1.0.3) (2025-03-19)
 
 

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+const runtimePublicConfig = useRuntimeConfig().public
 
 </script>
 
@@ -42,6 +43,19 @@
                 <a href="https://www.ga.gov.au/accessibility" target="_blank" rel="noopener noreferrer">Accessibility</a>
                 <a href="https://www.ga.gov.au/ips" target="_blank" rel="noopener noreferrer">Information Publication Scheme</a>
                 <a href="https://www.ga.gov.au/ips/foi" target="_blank" rel="noopener noreferrer">Freedom of Information Act</a>
+            </div>
+            <hr class="my-4 opacity-25" />
+            <div class="text-xs opacity-75 flex gap-2">
+                <span>Release:</span>
+                <span>ver: {{ runtimePublicConfig.releaseVersion }}</span>
+                <span>•</span>
+                <span>hash: {{ runtimePublicConfig.releaseHash }}</span>
+                <span>•</span>
+                <span>branch: {{ runtimePublicConfig.releaseSource }}</span>
+                <span>•</span>
+                <span>target: {{ runtimePublicConfig.releaseTarget }}</span>
+                <span>•</span>
+                <span v-if="runtimePublicConfig.releaseTimestamp">timestamp: {{ new Date(runtimePublicConfig.releaseTimestamp as string).toLocaleString() }}</span>
             </div>
         </div>
     </footer>
