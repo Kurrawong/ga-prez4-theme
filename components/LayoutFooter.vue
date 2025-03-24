@@ -47,13 +47,15 @@ const runtimePublicConfig = useRuntimeConfig().public
             <hr class="my-4 opacity-25" />
             <div class="text-xs opacity-75 flex gap-2">
                 <span>Release:</span>
-                <span>{{ runtimePublicConfig.releaseVersion }}</span>
+                <span>ver: {{ runtimePublicConfig.releaseVersion }}</span>
                 <span>•</span>
-                <span>{{ runtimePublicConfig.releaseSource }}</span>
+                <span>hash: {{ runtimePublicConfig.releaseHash }}</span>
                 <span>•</span>
-                <span>{{ runtimePublicConfig.releaseTarget }}</span>
+                <span>branch: {{ runtimePublicConfig.releaseSource }}</span>
                 <span>•</span>
-                <span>{{ runtimePublicConfig.releaseTimestamp }}</span>
+                <span>target: {{ runtimePublicConfig.releaseTarget }}</span>
+                <span>•</span>
+                <span v-if="runtimePublicConfig.releaseTimestamp">timestamp: {{ new Date(runtimePublicConfig.releaseTimestamp as string).toLocaleString() }}</span>
             </div>
         </div>
     </footer>
