@@ -28,7 +28,7 @@ onBeforeMount(() => {
 
         <div class="bg-gradient-to-b from-[#082e41] to-[#00718b] h-36 text-white">
             <div class="container mx-auto text-center flex items-center justify-center w-full h-full">
-                <span class="font-bold text-3xl">GA Vocabulary Register</span>
+                <span class="font-bold text-3xl">GA Vocabulary Register - test from feature 03 - hi everyone</span>
             </div>
         </div>
 
