@@ -3,10 +3,6 @@ name: Manual Deploy
 on:
   workflow_dispatch:
     inputs:
-      branch:
-        description: 'Branch to deploy'
-        required: true
-        type: string
       environment:
         description: 'Environment to deploy to'
         required: true
@@ -33,7 +29,7 @@ jobs:
       # Step 1: Checkout specified branch
       - uses: actions/checkout@v3
         with:
-          ref: ${{ inputs.branch }}
+          ref: ${{ github.ref }}
           fetch-depth: 0
 
       # Step 2: Set up environment
@@ -50,7 +46,7 @@ jobs:
         run: |
           TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           HASH=$(git rev-parse HEAD)
-          BRANCH_NAME=${{ inputs.branch }}
+          BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
           
           echo "NUXT_PUBLIC_RELEASE_TIMESTAMP=${TIMESTAMP}" >> $GITHUB_ENV
           echo "NUXT_PUBLIC_RELEASE_VERSION=${HASH:0:7}" >> $GITHUB_ENV
