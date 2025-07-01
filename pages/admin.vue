@@ -250,7 +250,7 @@ async function downloadVocab(vocab: VocabObj, format: "turtle" | "excel") {
         formData.append("upload_file", blobTurtle, vocab.filename);
 
         // request to VocExcel reverse convert
-        const excelFile = await $fetch<{ data: string; output_format: string; }>("https://api.tools.kurrawong.ai/api/vocexcel/convert", {
+        const excelFile = await $fetch<{ data: string; output_format: string; }>("https://api.tools.kurrawong.ai/api/vocexcel/convert?version=0.8.5.GA", {
             method: "POST",
             body: formData
         });

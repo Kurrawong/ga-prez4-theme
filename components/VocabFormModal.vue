@@ -80,7 +80,7 @@ async function validate() {
             formData.append("upload_file", file.value, file.value.name);
 
             try {
-                const turtleFile = await $fetch<{ data: string; output_format: string; }>("https://api.tools.kurrawong.ai/api/vocexcel/convert", {
+                const turtleFile = await $fetch<{ data: string; output_format: string; }>("https://api.tools.kurrawong.ai/api/vocexcel/convert?version=0.8.5.GA", {
                     method: "POST",
                     body: formData
                 });
