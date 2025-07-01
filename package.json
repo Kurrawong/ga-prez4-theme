@@ -21,6 +21,7 @@
     "clsx": "^2.1.1",
     "lucide-vue-next": "^0.461.0",
     "nuxt": "^3.13.2",
+    "oxigraph": "^0.4.11",
     "radix-vue": "^1.9.10",
     "shadcn-nuxt": "0.11.3",
     "tailwind-merge": "^2.5.5",
