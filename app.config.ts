@@ -13,6 +13,9 @@ export default defineAppConfig({
         { "label": "API Documentation", "url": "/docs", "active": true },
         { "label": "Vocabulary Management", "url": "/admin", "active": false }
     ],
+    nameSubstitutions: {
+        "collections": "Vocabularies"
+    }
 });
 
 declare module '@nuxt/schema' {

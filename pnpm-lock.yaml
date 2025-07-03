@@ -23,15 +23,30 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      dompurify:
+        specifier: 3.2.3
+        version: 3.2.3
       lucide-vue-next:
         specifier: ^0.461.0
         version: 0.461.0(vue@3.5.13(typescript@5.8.2))
+      marked:
+        specifier: 15.0.4
+        version: 15.0.4
+      mermaid:
+        specifier: 11.4.1
+        version: 11.4.1
       nuxt:
         specifier: ^3.13.2
         version: 3.16.0(@parcel/watcher@2.5.1)(@types/node@14.0.23)(db0@0.3.1)(eslint@9.22.0(jiti@2.4.2))(ioredis@5.6.0)(magicast@0.3.5)(meow@13.2.0)(optionator@0.9.4)(rollup@4.36.0)(stylus@0.57.0)(terser@5.39.0)(typescript@5.8.2)(vite@6.2.2(@types/node@14.0.23)(jiti@2.4.2)(stylus@0.57.0)(terser@5.39.0)(yaml@2.7.0))(yaml@2.7.0)
       oxigraph:
         specifier: ^0.4.11
         version: 0.4.11
+      prez-components:
+        specifier: 4.0.1
+        version: 4.0.1(tailwindcss@3.4.17)(vue@3.5.13(typescript@5.8.2))
+      prez-lib:
+        specifier: 4.0.1
+        version: 4.0.1
       radix-vue:
         specifier: ^1.9.10
         version: 1.9.17(vue@3.5.13(typescript@5.8.2))
@@ -2521,8 +2536,8 @@ packages:
   dompurify@2.5.8:
     resolution: {integrity: sha512-o1vSNgrmYMQObbSSvF/1brBYEQPHhV1+gsmrusO7/GXtp1T9rCS8cXFqVxK/9crT1jA6Ccv+5MTSjBNqr7Sovw==}
 
-  dompurify@3.2.4:
-    resolution: {integrity: sha512-ysFSFEDVduQpyhzAob/kkuJjf5zWkZD8/A9ywSp1byueyuCfHamrCBa14/Oc2iiB0e51B+NpxSl5gmzn+Ms/mg==}
+  dompurify@3.2.3:
+    resolution: {integrity: sha512-U1U5Hzc2MO0oW3DF+G9qYN0aT7atAou4AgI0XjWz061nyBPbdxkfdhfy5uMgGn6+oLFCfn44ZGbdDqCzVmlOWA==}
 
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
@@ -3651,8 +3666,13 @@ packages:
     engines: {node: '>= 18'}
     hasBin: true
 
-  marked@15.0.7:
-    resolution: {integrity: sha512-dgLIeKGLx5FwziAnsk4ONoGwHwGPJzselimvlVskE9XLN4Orv9u2VA3GWw/lYUqjfA0rUT/6fqKwfZJapP9BEg==}
+  marked@13.0.3:
+    resolution: {integrity: sha512-rqRix3/TWzE9rIoFGIn8JmsVfhiuC8VIQ8IdX5TfzmeBucdY05/0UlzKaw0eVtpcN/OdVFpBk7CjKGo9iHJ/zA==}
+    engines: {node: '>= 18'}
+    hasBin: true
+
+  marked@15.0.4:
+    resolution: {integrity: sha512-TCHvDqmb3ZJ4PWG7VEGVgtefA5/euFmsIhxtD0XsBxI39gUSKL81mIRFdt0AiNQozUahd4ke98ZdirExd/vSEw==}
     engines: {node: '>= 18'}
     hasBin: true
 
@@ -3685,8 +3705,8 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
-  mermaid@11.5.0:
-    resolution: {integrity: sha512-IYhyukID3zzDj1EihKiN1lp+PXNImoJ3Iyz73qeDAgnus4BNGsJV1n471P4PyeGxPVONerZxignwGxGTSwZnlg==}
+  mermaid@11.4.1:
+    resolution: {integrity: sha512-Mb01JT/x6CKDWaxigwfZYuYmDZ6xtrNwNlidKZwkSrDaY9n90tdrJTV5Umk+wP1fZscGptmKFXHsXMDEVZ+Q6A==}
 
   methods@1.1.2:
     resolution: {integrity: sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==}
@@ -4571,10 +4591,18 @@ packages:
     resolution: {integrity: sha512-4yf0QO/sllf/1zbZWYnvWw3NxCQwLXKzIj0G849LSufP15BXKM0rbD2Z3wVnkMfjdn/CB0Dpp444gYAACdsplg==}
     engines: {node: '>=18'}
 
+  prez-components@4.0.1:
+    resolution: {integrity: sha512-Dc18XOCGxo5FRZXWusfKwNqAcCbejlbIBdtvcW5rcxs5SyXXmqy91lZeTyAkjwd3j9taLJDxdbjE49S1vgL+7w==}
+    peerDependencies:
+      vue: ^3.0.0
+
   prez-components@4.0.2:
     resolution: {integrity: sha512-n45ARID9mPaHcu6bEDmgKqg61XalGwFtXIVSDoOYgoSrvV0kw0wT1fA82EraFYQeQozH2bsWaOD6DEsLgROuRA==}
     peerDependencies:
       vue: ^3.0.0
+
+  prez-lib@4.0.1:
+    resolution: {integrity: sha512-QKni0TCN9x9t5fTwXXx7cWjxpVFFNl3mPvbO/xV1U9FaajrEKPkyHrvjLAgXY6k/d+YeHz/ygRXKRKtOqhsrrg==}
 
   prez-lib@4.0.2:
     resolution: {integrity: sha512-UyMxzzwUt3AnvTCQ5zMDUwQoJRL5kC9c3BVZjT0gzNALiXmtl1s/wr767y7wVt0Ar2dZIJgg1mbdhDlia71wOg==}
@@ -5480,8 +5508,8 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  uuid@11.1.0:
-    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+  uuid@9.0.1:
+    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
 
   validate-npm-package-license@3.0.4:
@@ -5681,6 +5709,11 @@ packages:
 
   vue-router@4.5.0:
     resolution: {integrity: sha512-HDuk+PuH5monfNuY+ct49mNmkCRK4xJAV9Ts4z9UFc4rzdDnxQLyCMGGc8pKhZhHTVzfanpNwB/lwqevcBwI4w==}
+    peerDependencies:
+      vue: ^3.2.0
+
+  vue-router@4.5.1:
+    resolution: {integrity: sha512-ogAF3P97NPm8fJsE4by9dwSYtDwXIY1nFY9T6DyQnGHd1E2Da94w9JIolpe42LJGIl0DwOHBi8TcRPlPGwbTtw==}
     peerDependencies:
       vue: ^3.2.0
 
@@ -8621,7 +8654,7 @@ snapshots:
 
   dompurify@2.5.8: {}
 
-  dompurify@3.2.4:
+  dompurify@3.2.3:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
 
@@ -9815,7 +9848,9 @@ snapshots:
 
   marked@12.0.2: {}
 
-  marked@15.0.7: {}
+  marked@13.0.3: {}
+
+  marked@15.0.4: {}
 
   math-intrinsics@1.1.0: {}
 
@@ -9833,7 +9868,7 @@ snapshots:
 
   merge2@1.4.1: {}
 
-  mermaid@11.5.0:
+  mermaid@11.4.1:
     dependencies:
       '@braintree/sanitize-url': 7.1.1
       '@iconify/utils': 2.3.0
@@ -9846,15 +9881,15 @@ snapshots:
       d3-sankey: 0.12.3
       dagre-d3-es: 7.0.11
       dayjs: 1.11.13
-      dompurify: 3.2.4
+      dompurify: 3.2.3
       katex: 0.16.21
       khroma: 2.1.0
       lodash-es: 4.17.21
-      marked: 15.0.7
+      marked: 13.0.3
       roughjs: 4.6.6
       stylis: 4.3.6
       ts-dedent: 2.2.0
-      uuid: 11.1.0
+      uuid: 9.0.1
     transitivePeerDependencies:
       - supports-color
 
@@ -10799,14 +10834,33 @@ snapshots:
     dependencies:
       parse-ms: 4.0.0
 
+  prez-components@4.0.1(tailwindcss@3.4.17)(vue@3.5.13(typescript@5.8.2)):
+    dependencies:
+      class-variance-authority: 0.7.1
+      clsx: 2.1.1
+      dompurify: 3.2.3
+      lucide-vue-next: 0.461.0(vue@3.5.13(typescript@5.8.2))
+      marked: 15.0.4
+      mermaid: 11.4.1
+      prez-lib: 4.0.1
+      radix-vue: 1.9.17(vue@3.5.13(typescript@5.8.2))
+      tailwind-merge: 2.6.0
+      tailwindcss-animate: 1.0.7(tailwindcss@3.4.17)
+      vue: 3.5.13(typescript@5.8.2)
+      vue-router: 4.5.1(vue@3.5.13(typescript@5.8.2))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - supports-color
+      - tailwindcss
+
   prez-components@4.0.2(tailwindcss@3.4.17)(vue@3.5.13(typescript@5.8.2)):
     dependencies:
       class-variance-authority: 0.7.1
       clsx: 2.1.1
-      dompurify: 3.2.4
+      dompurify: 3.2.3
       lucide-vue-next: 0.461.0(vue@3.5.13(typescript@5.8.2))
-      marked: 15.0.7
-      mermaid: 11.5.0
+      marked: 15.0.4
+      mermaid: 11.4.1
       prez-lib: 4.0.2
       radix-vue: 1.9.17(vue@3.5.13(typescript@5.8.2))
       tailwind-merge: 2.6.0
@@ -10817,6 +10871,10 @@ snapshots:
       - '@vue/composition-api'
       - supports-color
       - tailwindcss
+
+  prez-lib@4.0.1:
+    dependencies:
+      n3: 1.24.2
 
   prez-lib@4.0.2:
     dependencies:
@@ -10833,8 +10891,8 @@ snapshots:
       clsx: 2.1.1
       input: 1.0.1
       lucide-vue-next: 0.461.0(vue@3.5.13(typescript@5.8.2))
-      marked: 15.0.7
-      mermaid: 11.5.0
+      marked: 15.0.4
+      mermaid: 11.4.1
       prez-components: 4.0.2(tailwindcss@3.4.17)(vue@3.5.13(typescript@5.8.2))
       prez-lib: 4.0.2
       radix-vue: 1.9.17(vue@3.5.13(typescript@5.8.2))
@@ -11884,7 +11942,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  uuid@11.1.0: {}
+  uuid@9.0.1: {}
 
   validate-npm-package-license@3.0.4:
     dependencies:
@@ -12093,6 +12151,11 @@ snapshots:
       - supports-color
 
   vue-router@4.5.0(vue@3.5.13(typescript@5.8.2)):
+    dependencies:
+      '@vue/devtools-api': 6.6.4
+      vue: 3.5.13(typescript@5.8.2)
+
+  vue-router@4.5.1(vue@3.5.13(typescript@5.8.2)):
     dependencies:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.13(typescript@5.8.2)
