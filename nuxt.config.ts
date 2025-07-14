@@ -25,6 +25,9 @@ export default defineNuxtConfig({
             releaseSource: process.env.NUXT_PUBLIC_RELEASE_SOURCE,
             releaseTarget: process.env.NUXT_PUBLIC_RELEASE_TARGET,
             releaseType: process.env.NUXT_PUBLIC_RELEASE_TYPE,
-        }
+            vocabLocation: "", // must have /contents/ at the root of the repo, i.e. <OWNER>/<REPO>/contents/<PATH_TO_VOCAB_DIRECTORY>
+            githubToken: "", // must have repo access
+        },
     },
+    
 });
