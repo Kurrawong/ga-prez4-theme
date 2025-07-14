@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.2.1...v1.2.2) (2025-07-14)
+
+
+### Bug Fixes
+
+* update admin env settings ([c936d39](https://github.com/Kurrawong/ga-prez4-theme/commit/c936d39ccf6d28b8ae2b0d632c6a03f85385f0d7))
+
 ## [1.2.1](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.2.0...v1.2.1) (2025-07-14)
 
 
