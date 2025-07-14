@@ -61,8 +61,8 @@ jobs:
             if [ -n "${DEV_BUCKET_NAME}" ]; then
               echo "BUCKET_NAME=${DEV_BUCKET_NAME}" >> $GITHUB_ENV
               echo "NUXT_PUBLIC_PREZ_API_ENDPOINT=${{ vars.DEV_ENDPOINT }}" >> $GITHUB_ENV
-              echo "NUXT_PUBLIC_VOCAB_LOCATION=${{ vars.VOCAB_LOCATION }}" >> $GITHUB_ENV
-              echo "NUXT_PUBLIC_GITHUB_TOKEN=${{ vars.ACCESS_TOKEN }}" >> $GITHUB_ENV
+              echo "NUXT_PUBLIC_VOCAB_LOCATION=${{ secrets.VOCAB_LOCATION }}" >> $GITHUB_ENV
+              echo "NUXT_PUBLIC_GITHUB_TOKEN=${{ secrets.ACCESS_TOKEN }}" >> $GITHUB_ENV
             else
               echo "::error::DEV_BUCKET_NAME not configured"
               exit 1
