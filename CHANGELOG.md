@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.1.0...v1.2.0) (2025-07-14)
+
+
+### Features
+
+* implemented vocab admin page ([89d4a84](https://github.com/Kurrawong/ga-prez4-theme/commit/89d4a840e553e10458f27b2aec6c0a292e44aad3))
+
 # [1.1.0](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.0.3...v1.1.0) (2025-03-24)
 
 
