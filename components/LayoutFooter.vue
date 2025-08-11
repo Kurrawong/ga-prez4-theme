@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-const runtimePublicConfig = useRuntimeConfig().public
-
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faFacebookF, faXTwitter, faLinkedinIn, faInstagram, faYoutube } from "@fortawesome/free-brands-svg-icons";
 </script>
 
 <template>
@@ -22,18 +22,28 @@ const runtimePublicConfig = useRuntimeConfig().public
                 <div class="flex flex-col gap-4">
                     <h3 class="text-xl">Connect with us</h3>
                     <div class="flex flex-row gap-2">
-                        <a href="https://www.facebook.com/GeoscienceAustralia" target="_blank" rel="noopener noreferrer">facebook</a>
-                        <a href="https://twitter.com/GeoscienceAus" target="_blank" rel="noopener noreferrer">twitter</a>
-                        <a href="https://au.linkedin.com/company/geoscience-australia" target="_blank" rel="noopener noreferrer">linkedin</a>
-                        <a href="https://www.instagram.com/geoscienceaustralia" target="_blank" rel="noopener noreferrer">instagram</a>
-                        <a href="http://www.youtube.com/user/GeoscienceAustralia" target="_blank" rel="noopener noreferrer">youtube</a>
+                        <a href="https://www.facebook.com/GeoscienceAustralia" target="_blank" rel="noopener noreferrer">
+                            <FontAwesomeIcon :icon="faFacebookF" />
+                        </a>
+                        <a href="https://twitter.com/GeoscienceAus" target="_blank" rel="noopener noreferrer">
+                            <FontAwesomeIcon :icon="faXTwitter" />
+                        </a>
+                        <a href="https://au.linkedin.com/company/geoscience-australia" target="_blank" rel="noopener noreferrer">
+                            <FontAwesomeIcon :icon="faLinkedinIn" />
+                        </a>
+                        <a href="https://www.instagram.com/geoscienceaustralia" target="_blank" rel="noopener noreferrer">
+                            <FontAwesomeIcon :icon="faInstagram" />
+                        </a>
+                        <a href="http://www.youtube.com/user/GeoscienceAustralia" target="_blank" rel="noopener noreferrer">
+                            <FontAwesomeIcon :icon="faYoutube" />
+                        </a>
                     </div>
                 </div>
             </div>
             <hr class="my-12 opacity-25" />
             <div class="text-sm">
                 <p>
-                    Geoscience Australia acknowledges the traditional owners and custodians of Country throughout Australia and acknowledges their continuing connection to land, waters and community. We pay our respects to the people, the cultures and the elders past and present.
+                    Geoscience Australia values the lands, water and sky as we work to deepen a shared understanding of Country and Earth. We respect First Nations peoples and their enduring connection, contribution and obligations to Country. Reflecting on our shared history, we are committed to listen and learn.
                 </p>
             </div>
             <div class="flex flex-row gap-6 text-sm font-[600] mt-6">
@@ -43,19 +53,6 @@ const runtimePublicConfig = useRuntimeConfig().public
                 <a href="https://www.ga.gov.au/accessibility" target="_blank" rel="noopener noreferrer">Accessibility</a>
                 <a href="https://www.ga.gov.au/ips" target="_blank" rel="noopener noreferrer">Information Publication Scheme</a>
                 <a href="https://www.ga.gov.au/ips/foi" target="_blank" rel="noopener noreferrer">Freedom of Information Act</a>
-            </div>
-            <hr class="my-4 opacity-25" />
-            <div class="text-xs opacity-75 flex gap-2">
-                <span>Release:</span>
-                <span>ver: {{ runtimePublicConfig.releaseVersion }}</span>
-                <span>•</span>
-                <span>hash: {{ runtimePublicConfig.releaseHash }}</span>
-                <span>•</span>
-                <span>branch: {{ runtimePublicConfig.releaseSource }}</span>
-                <span>•</span>
-                <span>target: {{ runtimePublicConfig.releaseTarget }}</span>
-                <span>•</span>
-                <span v-if="runtimePublicConfig.releaseTimestamp">timestamp: {{ new Date(runtimePublicConfig.releaseTimestamp as string).toLocaleString() }}</span>
             </div>
         </div>
     </footer>
