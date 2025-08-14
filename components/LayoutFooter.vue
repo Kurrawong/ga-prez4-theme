@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faFacebookF, faXTwitter, faLinkedinIn, faInstagram, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { MoveUpRight } from "lucide-vue-next";
 </script>
 
 <template>
@@ -9,19 +10,17 @@ import { faFacebookF, faXTwitter, faLinkedinIn, faInstagram, faYoutube } from "@
             <div class="grid grid-cols-3 text-base font-[600]">
                 <div class="flex flex-col gap-4">
                     <h3 class="text-xl font-bold">Related websites</h3>
-                    <a href="https://www.ga.gov.au/scientific-topics/dea" target="_blank" rel="noopener noreferrer">Digital Earth Australia</a>
-                    <a href="https://www.ga.gov.au/scientific-topics/resourcing-australias-prosperity" target="_blank" rel="noopener noreferrer">Resourcing Australia's Prosperity</a>
-                    <a href="https://www.ga.gov.au/scientific-topics/community-safety" target="_blank" rel="noopener noreferrer">Community Safety</a>
+                    <a href="https://portal.ga.gov.au/" target="_blank" rel="noopener noreferrer">Geoscience Australia Portal</a>
+                    <a href="https://digital.atlas.gov.au/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center">Digital Atlas of Australia <MoveUpRight class="size-4 ml-2" /></a>
                 </div>
                 <div class="flex flex-col gap-4">
                     <h3 class="text-xl">Useful tools</h3>
                     <a href="https://ecat.ga.gov.au/geonetwork/srv/eng/catalog.search#/home" target="_blank" rel="noopener noreferrer">Search data &amp; publications</a>
                     <a href="https://earthquakes.ga.gov.au/" target="_blank" rel="noopener noreferrer">Recent earthquakes</a>
-                    <a href="https://www.eftf.ga.gov.au/data-discovery-portal" target="_blank" rel="noopener noreferrer">Data Discovery Portal</a>
                 </div>
                 <div class="flex flex-col gap-4">
                     <h3 class="text-xl">Connect with us</h3>
-                    <div class="flex flex-row gap-2">
+                    <div class="flex flex-row gap-2 text-2xl">
                         <a href="https://www.facebook.com/GeoscienceAustralia" target="_blank" rel="noopener noreferrer">
                             <FontAwesomeIcon :icon="faFacebookF" />
                         </a>
