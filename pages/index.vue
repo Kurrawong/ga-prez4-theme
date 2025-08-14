@@ -2,14 +2,22 @@
     <NuxtLayout contentonly>
         <template #default>
             <h1 class="text-3xl mt-4 mb-4">Geoscience Australia Vocabularies</h1>
-            <p class="mb-4">Welcome to GA's public vocabulary system. This tool is an instance of VocPrez, a read-only web delivery system for Simple Knowledge Organization System (SKOS)-formulated RDF vocabularies.</p>
-            <p class="mb-4">This is the static register (index) of GA's vocabularies. Its purpose is to present the static URIs to each of GA's vocabs. This is particularly useful for machines that wish to automatically index our vocabularies, rather than humans who can search for them manually.</p>
-            <h2 class="text-2xl font-bold mt-4 mb-2">About the Vocabularies</h2>
-            <p class="mb-4">These vocabularies are Geoscience Australia's vocabularies for internal and external use. Most are simple code lists for data types, science concepts and other related things. Some are a little more complex. All are formulated according to the Simple Knowledge Organization System (SKOS) W3C web standard which means they are structured in a machine-readable way.</p>
-            <p class="mb-4">They are published via VocPrez which enables human readability of the vocabularies, via web pages, and also machine readability via a RESTful API and also a SPARQL service.</p>
-            <p class="mb-4">Vocabs are also registered in the Data and Publications catalogue</p>
+            <p>Welcome to <a href="https://www.ga.gov.au/" target="_blank" rel="noopener noreferrer">Geoscience Australia</a>'s public vocabulary system. This is a static register (index) of Geoscience Australia's controlled vocabularies.</p>
+            <p>The register allows meaningful discovery, sharing and re-use of data between multiple parties and communicates reference concepts utilised by Geoscience Australia in databases, controlled lists used in metadata and cataloguing, glossaries and terminology, and international classification vocabularies.</p>
+            <p>Subject matter experts at Geoscience Australia compile and review each vocabulary, sometimes in collaboration with external contributors, before publication. A governance process is in place to allow for updates when necessary. Any changes made to a vocabulary or concept are documented in the associated metadata.</p>
+
+            <Button class="" as-child>
+                <NuxtLink to="/catalogs/catalogue:ga-vocabs/collections">Go to Vocabularies</NuxtLink>
+            </Button>
+
             <h2 class="text-2xl font-bold mt-4 mb-2">Contact</h2>
-            <p class="mb-4">For more information or to provide feedback, contact <a href="mailto:clientservices@ga.gov.au">clientservices@ga.gov.au</a></p>
+            <p>For more information or to provide feedback, please contact <a href="mailto:clientservices@ga.gov.au">clientservices@ga.gov.au</a></p>
         </template>
     </NuxtLayout>
 </template>
+
+<style scoped>
+p {
+    margin-bottom: 1rem;
+}
+</style>

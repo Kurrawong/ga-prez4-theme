@@ -15,6 +15,10 @@ export default defineAppConfig({
     ],
     nameSubstitutions: {
         "collections": "Vocabularies"
+    },
+    pagination: {
+        itemsPerPage: 20,
+        conceptsPerPage: 50
     }
 });
 

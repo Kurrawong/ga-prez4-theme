@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { dumpNodeArray } from 'prez-lib';
+import { Facets } from "prez-components";
 
 const appConfig = useAppConfig();
 const route = useRoute();
@@ -13,6 +14,7 @@ const { getPageUrl, pagination } = usePageInfo(data);
 
 const apiUrl = (apiEndpoint + urlPath.value).split('?')[0];
 const currentProfile = computed(()=>data.value ? data.value.profiles.find(p=>p.current) : undefined);
+const currentFacetProfile = route.query.facet_profile?.toString() || undefined;
 
 const header = computed(()=>{
     const lastParent = data.value && data.value.parents?.length > 0
@@ -61,11 +63,19 @@ watch(() => route.fullPath, () => {
 
                 <div v-else-if="data?.data">
                     <slot name="list-top" :data="data"></slot>
+
+                    <Facets v-if="globalProfiles && currentFacetProfile && globalProfiles[currentFacetProfile]" 
+                        :facets="data.facets" 
+                        :profile="globalProfiles[currentFacetProfile]" 
+                    />
+
                     <ItemList 
                         v-if="globalProfiles && currentProfile"
                         :fields="globalProfiles?.[currentProfile?.uri || '']"
                         :list="data.data" :key="urlPath" 
                     />
+
+                    <Loading v-else />
 
                     <slot name="pagination" :data="data" :pagination="pagination">
                         <PrezPagination :totalItems="data.count" :pagination="pagination" :maxReached="data.maxReached" />
