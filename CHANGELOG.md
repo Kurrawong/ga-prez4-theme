@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.2.2...v1.3.0) (2025-08-18)
+
+
+### Features
+
+* upgraded Prez UI, implemented some feedback changes ([38f6858](https://github.com/Kurrawong/ga-prez4-theme/commit/38f6858b515ca608f2bb77cd7eca4d218437df0d))
+
 ## [1.2.2](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.2.1...v1.2.2) (2025-07-14)
 
 
