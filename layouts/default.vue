@@ -37,9 +37,6 @@ onBeforeMount(() => {
                 <div class="container mx-auto flex flex-row">
                     <div class="px-4 py-4 flex-grow">
                         <slot name="breadcrumb" />
-                        <h1 class="text-3xl pb-4 pt-3">
-                            <slot name="header-text" />
-                        </h1>
                     </div>
                     <div v-if="showDebugPanel" class="m-2 bg-gray-200 rounded-lg text-[12px] leading-[12px]">
                         <slot name="debug" />
@@ -56,6 +53,9 @@ onBeforeMount(() => {
         <div class="container mx-auto flex-grow pb-[4.5rem]">
             <div v-if="sidepanel" class="grid grid-cols-4 gap-4 px-4 py-4">
                 <div :class="expandSidePanel ? 'col-span-3 relative' : 'col-span-4 relative'">
+                    <h1 class="text-3xl pb-4 pt-3">
+                        <slot name="header-text" />
+                    </h1>
                     <slot />
                     <Button v-if="!expandSidePanel" title="Show sidepanel" variant="ghost" size="icon" class="absolute right-0 top-[-5px] pointer-events-auto" @click="expandSidePanel = !expandSidePanel">
                         <ChevronLeft class="size-4" />
@@ -69,6 +69,9 @@ onBeforeMount(() => {
                 </div>
             </div>
             <div v-else class="px-4 py-4">
+                <h1 class="text-3xl pb-4 pt-3">
+                    <slot name="header-text" />
+                </h1>
                 <slot />
             </div>
         </div>
