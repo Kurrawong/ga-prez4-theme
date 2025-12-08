@@ -128,6 +128,7 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
                                     :is-concept-scheme="isConceptScheme"
                                     :top-concepts-url="topConceptsUrl"
                                     :renderMarkdown="runtimeConfig.public.prezAutoDetectMarkdown"
+                                    :renderHtml="runtimeConfig.public.prezAutoDetectHtml"
                                 />
 
                                 <div v-if="hiddenData.properties" class="m-4 flex flex-col">
@@ -143,6 +144,7 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
                                             :is-concept-scheme="isConceptScheme"
                                             :top-concepts-url="topConceptsUrl"
                                             :renderMarkdown="runtimeConfig.public.prezAutoDetectMarkdown"
+                                            :renderHtml="runtimeConfig.public.prezAutoDetectHtml"
                                         />
                                     </div>
                                 </div>
