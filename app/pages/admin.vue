@@ -65,7 +65,7 @@ let oxigraphInitialised = false;
 
 async function initialiseOxigraph() {
     if (!oxigraphInitialised) {
-        await init("https://cdn.jsdelivr.net/npm/oxigraph@0.4.11/web_bg.wasm");
+        await init("https://cdn.jsdelivr.net/npm/oxigraph@0.5.4/web_bg.wasm");
         oxigraphInitialised = true;
     }
 }
@@ -99,7 +99,7 @@ type StatusesObj = Record<string, {
 
 async function getStatuses(): Promise<StatusesObj> {
     // temporary until we get status data loaded
-    const content = await $fetch<string>("https://raw.githubusercontent.com/Kurrawong/semantic-background/refs/heads/main/ontologies/reg-statuses.ttl");
+    const content = await $fetch<string>("https://raw.githubusercontent.com/Kurrawong/semantic-background/refs/heads/main/resources/vocabularies/items/reg-statuses.ttl");
 
     await initialiseOxigraph();
     const store = new oxigraph.Store();

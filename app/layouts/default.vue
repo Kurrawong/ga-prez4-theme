@@ -50,6 +50,8 @@ onBeforeMount(() => {
             </div>
         </div>
 
+	    <slot name="statusBanner" />
+
         <div class="container mx-auto flex-grow pb-[4.5rem]">
             <div v-if="sidepanel" class="grid grid-cols-4 gap-4 px-4 py-4">
                 <div :class="expandSidePanel ? 'col-span-3 relative' : 'col-span-4 relative'">

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ChevronDown, ChevronUp } from "lucide-vue-next";
-import { applyProfileToItem, dumpNodeArray, getTopConceptsUrl, SYSTEM_PREDICATES, type PrezConceptSchemeNode, type PrezDataItem, type PrezProperties, type PrezFocusNode } from 'prez-lib';
+import { applyProfileToItem, dumpNodeArray, getTopConceptsUrl, SYSTEM_PREDICATES, type PrezConceptSchemeNode, type PrezDataItem, type PrezProperties, type PrezFocusNode } from "prez-lib";
 
 const appConfig = useAppConfig();
 const runtimeConfig = useRuntimeConfig();
@@ -11,11 +11,13 @@ const urlPath = ref(getPageUrl());
 const apiEndpoint = useGetPrezAPIEndpoint();
 const { status, error, data } = useGetItem(apiEndpoint, urlPath);
 const isConceptScheme = computed(() => data.value?.data.rdfTypes?.find(n => n.value == SYSTEM_PREDICATES.skosConceptScheme));
+const isConcept = computed(() => data.value?.data.rdfTypes?.find(n => n.value == SYSTEM_PREDICATES.skosConcept));
 const topConceptsUrl = computed(() => isConceptScheme.value ? getTopConceptsUrl(data.value!.data) : '');
 const apiUrl = (apiEndpoint + urlPath.value).split('?')[0];
 const currentProfile = computed(() => data.value ? data.value.profiles.find(p => p.current) : undefined);
+const sdoStatus = computed(() => !!data.value?.data.properties && "https://schema.org/status" in data.value.data.properties ? data.value?.data.properties["https://schema.org/status"].objects[0] : undefined);
 
-const allowedPredicates = [
+const shownProperties: string[] = [
     "http://www.w3.org/2004/02/skos/core#definition",
     "http://www.w3.org/2004/02/skos/core#broader",
     "http://www.w3.org/2004/02/skos/core#narrower",
@@ -24,31 +26,10 @@ const allowedPredicates = [
     "https://schema.org/status",
 ];
 
-const showHidden = ref(false);
-
-const filteredData = computed<PrezFocusNode>(() => {
-    let properties: PrezProperties = {};
-    if (data.value?.data?.properties) {
-        properties = Object.entries(data.value?.data.properties).filter(([key, value]) => allowedPredicates.includes(key)).reduce((obj, [key, value]) => {
-            obj[key] = value;
-            return obj;
-        }, {} as PrezProperties);
-    }
-
-    return {...data.value?.data as PrezFocusNode, properties}
-});
-
-const hiddenData = computed<PrezFocusNode>(() => {
-    let properties: PrezProperties = {};
-    if (data.value?.data?.properties) {
-        properties = Object.entries(data.value?.data.properties).filter(([key, value]) => !allowedPredicates.includes(key)).reduce((obj, [key, value]) => {
-            obj[key] = value;
-            return obj;
-        }, {} as PrezProperties);
-    }
-
-    return {...data.value?.data as PrezFocusNode, properties}
-});
+const hiddenProperties: string[] = [
+	"http://www.w3.org/2004/02/skos/core#prefLabel",
+	"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+];
 
 // Watch for changes in both globalProfiles and currentProfile
 // Apply profile to item uses the current profile to order properties
@@ -86,6 +67,15 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
             </slot>
         </template>
 
+	    <template v-if="sdoStatus && sdoStatus.value !== 'https://linked.data.gov.au/def/reg-statuses/stable' && (isConceptScheme || isConcept)" #statusBanner>
+		    <div :style="{backgroundColor: statusColourMap[sdoStatus.value]}">
+			    <div class="container mx-auto px-4 py-2">
+					This {{isConceptScheme ? 'vocabulary' : 'concept'}} is {{sdoStatus.label.value}}
+				    <p v-if="sdoStatus.description" class="line-clamp-1 text-muted-foreground text-xs italic">{{sdoStatus.description.value}}</p>
+			    </div>
+		    </div>
+	    </template>
+
         <template #default>
             <slot :data="data" :status="status" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
 
@@ -121,34 +111,13 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
                         <slot name="item-section" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
                             <slot name="item-top" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl"></slot>
                             <slot name="item-table" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
-
-                                <ItemTable
-                                    :term="filteredData" 
-                                    :key="urlPath + globalProfiles?.length + currentProfile?.uri" 
-                                    :is-concept-scheme="isConceptScheme"
-                                    :top-concepts-url="topConceptsUrl"
-                                    :renderMarkdown="runtimeConfig.public.prezAutoDetectMarkdown"
-                                    :renderHtml="runtimeConfig.public.prezAutoDetectHtml"
-                                />
-
-                                <div v-if="hiddenData.properties" class="m-4 flex flex-col">
-                                    <div :class="`w-full flex flex-row items-center justify-between border rounded-t p-2 text-sm cursor-pointer hover:bg-accent transition-all ${showHidden ? '' : 'rounded-b'}`" @click="showHidden = !showHidden">
-                                        <span>Further metadata</span>
-                                        <ChevronUp v-if="showHidden" class="size-4" />
-                                        <ChevronDown v-else class="size-4" />
-                                    </div>
-                                    <div :class="`overflow-hidden transition-all ${showHidden ? 'h-auto' : 'h-0'}`">
-                                        <ItemTable
-                                            :term="hiddenData" 
-                                            :key="urlPath + globalProfiles?.length + currentProfile?.uri" 
-                                            :is-concept-scheme="isConceptScheme"
-                                            :top-concepts-url="topConceptsUrl"
-                                            :renderMarkdown="runtimeConfig.public.prezAutoDetectMarkdown"
-                                            :renderHtml="runtimeConfig.public.prezAutoDetectHtml"
-                                        />
-                                    </div>
-                                </div>
-
+	                            <ItemTable
+		                            :term="data.data"
+		                            :key="urlPath + globalProfiles?.length + currentProfile?.uri"
+		                            :shownProperties="shownProperties"
+		                            :hiddenProperties="hiddenProperties"
+		                            :sortByShownProperties="true"
+	                            />
                             </slot>
                             <slot name="item-middle" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl"></slot>
 
