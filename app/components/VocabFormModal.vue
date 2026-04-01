@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Upload, CircleCheck, CircleX, LoaderCircle, TriangleAlert, Info, Eye, X } from "lucide-vue-next";
-import { DialogClose } from "radix-vue";
+import { DialogClose } from "reka-ui";
 
 interface VocabFormModalPropsBase {
     action: "create" | "update";
