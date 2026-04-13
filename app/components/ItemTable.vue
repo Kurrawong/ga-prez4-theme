@@ -8,8 +8,9 @@ import { Table, TableBody } from "@/components/ui/table";
 const props = defineProps<ItemTableProps & {
 	term: PrezFocusNode | PrezBlankNode;
 	shownProperties?: string[];
+	extraProperties?: string[];
 	hiddenProperties?: string[];
-	sortByShownProperties?: boolean;
+	sortByProperties?: boolean;
 }>();
 
 const extraOpen = ref(false);
@@ -30,7 +31,7 @@ const shownData = computed<PrezProperty[]>(() => {
 			})
 			.map(([_, value]) => value);
 
-		if (!!props.shownProperties && props.shownProperties.length > 0 && props.sortByShownProperties) {
+		if (!!props.shownProperties && props.shownProperties.length > 0 && props.sortByProperties) {
 			propertyArray.sort((a, b) => {
 				return props.shownProperties!.indexOf(a.predicate.value) - props.shownProperties!.indexOf(b.predicate.value);
 			});
@@ -54,8 +55,24 @@ const extraData = computed<PrezProperty[]>(() => {
 					return !props.shownProperties!.includes(key);
 				}
 			})
-			.map(([_, value]) => value)
-			.sort((a, b) => sortNodesByLabel(a.predicate, b.predicate));
+			.map(([_, value]) => value);
+
+		if (!!props.extraProperties && props.extraProperties.length > 0 && props.sortByProperties) {
+			propertyArray
+				.sort((a, b) => {
+					if (props.extraProperties!.includes(a.predicate.value) && props.extraProperties!.includes(b.predicate.value)) {
+						return props.extraProperties!.indexOf(a.predicate.value) - props.extraProperties!.indexOf(b.predicate.value);
+					} else if (props.extraProperties!.includes(a.predicate.value)) {
+						return -1;
+					} else if (props.extraProperties!.includes(b.predicate.value)) {
+						return 1;
+					} else {
+						return sortNodesByLabel(a.predicate, b.predicate) + 1;
+					}
+				});
+		} else {
+			propertyArray.sort((a, b) => sortNodesByLabel(a.predicate, b.predicate));
+		}
 	}
 
 	return propertyArray;

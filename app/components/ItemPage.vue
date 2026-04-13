@@ -17,15 +17,66 @@ const apiUrl = (apiEndpoint + urlPath.value).split('?')[0];
 const currentProfile = computed(() => data.value ? data.value.profiles.find(p => p.current) : undefined);
 const sdoStatus = computed(() => !!data.value?.data.properties && "https://schema.org/status" in data.value.data.properties ? data.value?.data.properties["https://schema.org/status"].objects[0] : undefined);
 
-const shownProperties: string[] = [
-    "http://www.w3.org/2004/02/skos/core#definition",
-    "http://www.w3.org/2004/02/skos/core#broader",
-    "http://www.w3.org/2004/02/skos/core#narrower",
-    "http://www.w3.org/2004/02/skos/core#inScheme",
-    "http://www.w3.org/2004/02/skos/core#member",
-    "https://schema.org/status",
-];
+// shown at top-level, sorted in this order
+const shownProperties = computed(() => {
+	if (isConceptScheme.value) {
+		return [
+			"http://www.w3.org/2004/02/skos/core#definition",
+			"https://schema.org/status",
+		];
+	} else if (isConcept.value) {
+		return [
+			"http://www.w3.org/2004/02/skos/core#inScheme",
+			"http://www.w3.org/2000/01/rdf-schema#isDefinedBy",
+			"http://www.w3.org/2004/02/skos/core#exactMatch",
+			"http://www.w3.org/2004/02/skos/core#closeMatch",
+			"http://www.w3.org/2004/02/skos/core#definition",
+			"http://www.w3.org/2004/02/skos/core#altLabel",
+			"https://schema.org/status",
+			"http://www.w3.org/2004/02/skos/core#historyNote",
+			"https://schema.org/citation",
+			"http://purl.org/dc/terms/source",
+			"http://www.w3.org/2004/02/skos/core#topConceptOf",
+			"http://www.w3.org/2004/02/skos/core#broader",
+			"http://www.w3.org/2004/02/skos/core#narrower",
+		];
+	} else {
+		return [];
+	}
+});
 
+// in collapsed "More information", sorted in this order, then alphabetical
+const extraProperties = computed(() => {
+	if (isConceptScheme.value) {
+		return [
+			"https://schema.org/version",
+			"http://www.w3.org/2002/07/owl#versionInfo",
+			"http://www.w3.org/2002/07/owl#versionIRI",
+			"http://www.w3.org/2004/02/skos/core#historyNote",
+			"https://schema.org/publisher",
+			"http://purl.org/dc/terms/publisher",
+			"https://schema.org/creator",
+			"http://purl.org/dc/terms/creator",
+			"https://schema.org/dateCreated",
+			"http://purl.org/dc/terms/created",
+			"https://schema.org/dateModified",
+			"http://purl.org/dc/terms/modified",
+			"https://schema.org/copyrightNotice",
+			"http://purl.org/dc/terms/license",
+			"http://www.w3.org/ns/prov#qualifiedAttribution",
+			"http://www.w3.org/ns/dcat#contactPoint",
+			"https://schema.org/keywords",
+			"http://www.w3.org/2000/01/rdf-schema#seeAlso",
+			"http://www.w3.org/ns/prov#wasDerivedFrom",
+		];
+	} else if (isConcept.value) {
+		return [];
+	} else {
+		return [];
+	}
+});
+
+// hidden from all tables
 const hiddenProperties: string[] = [
 	"http://www.w3.org/2004/02/skos/core#prefLabel",
 	"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
@@ -115,8 +166,9 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
 		                            :term="data.data"
 		                            :key="urlPath + globalProfiles?.length + currentProfile?.uri"
 		                            :shownProperties="shownProperties"
+		                            :extraProperties="extraProperties"
 		                            :hiddenProperties="hiddenProperties"
-		                            :sortByShownProperties="true"
+		                            sortByProperties
 	                            />
                             </slot>
                             <slot name="item-middle" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl"></slot>

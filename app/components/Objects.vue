@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { ObjectsProps } from "prez-components";
+import QualifiedAttribution from "~/components/QualifiedAttribution.vue";
 
 const props = defineProps<ObjectsProps>();
 </script>
@@ -15,6 +16,13 @@ const props = defineProps<ObjectsProps>();
                 :renderHtml="props.renderHtml"
                 :renderMarkdown="props.renderMarkdown"
             />
+	        <QualifiedAttribution
+		        v-else-if="props.predicate.value === 'http://www.w3.org/ns/prov#qualifiedAttribution'"
+		        :term="obj"
+		        :variant="props.variant"
+		        :renderHtml="props.renderHtml"
+		        :renderMarkdown="props.renderMarkdown"
+	        />
             <Term
                 v-else
                 :term="obj"
