@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { ChevronDown, ChevronUp } from "lucide-vue-next";
 import { applyProfileToItem, dumpNodeArray, getTopConceptsUrl, SYSTEM_PREDICATES, type PrezConceptSchemeNode, type PrezDataItem, type PrezProperties, type PrezFocusNode } from "prez-lib";
 
 const appConfig = useAppConfig();

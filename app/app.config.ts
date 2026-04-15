@@ -19,7 +19,7 @@ export default defineAppConfig({
     },
     pagination: {
         itemsPerPage: 20,
-        conceptsPerPage: 50
+        conceptsPerPage: 1000
     }
 });
 

@@ -1,0 +1,69 @@
+@base <https://ga/config> .
+@prefix schema: <https://schema.org/> .
+@prefix ont: <https://prez.dev/ont/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<https://prez.dev/systemGraph> {
+
+  <catalogs> a ont:DynamicEndpoint, ont:ListingEndpoint ;
+      rdfs:label "Catalogs" ;
+      ont:apiPath "/catalogs" ;
+      ont:relevantShapes <level1> .
+
+  <catalog> a ont:DynamicEndpoint, ont:ObjectEndpoint ;
+      rdfs:label "Catalog" ;
+      ont:apiPath "/catalogs/{catalogId}" ;
+      ont:relevantShapes <level1> .
+
+  <collections> a ont:DynamicEndpoint, ont:ListingEndpoint ;
+      rdfs:label "Collections" ;
+      ont:apiPath "/catalogs/{catalogId}/collections" ;
+      ont:relevantShapes <level2> .
+
+  <collection> a ont:DynamicEndpoint, ont:ObjectEndpoint ;
+      rdfs:label "Collection" ;
+      ont:apiPath "/catalogs/{catalogId}/collections/{collectionId}" ;
+      ont:relevantShapes <level2> .
+
+  <items> a ont:DynamicEndpoint, ont:ListingEndpoint ;
+      rdfs:label "Items" ;
+      ont:apiPath "/catalogs/{catalogId}/collections/{collectionId}/items" ;
+      ont:relevantShapes <level3> .
+
+  <item> a ont:DynamicEndpoint, ont:ObjectEndpoint ;
+      rdfs:label "Item" ;
+      ont:apiPath "/catalogs/{catalogId}/collections/{collectionId}/items/{itemId}" ;
+      ont:relevantShapes <level3> .
+
+  <level1> a sh:NodeShape ;
+      sh:targetClass schema:DataCatalog ;
+      ont:hierarchyLevel 1 .
+
+  <level2> a sh:NodeShape ;
+      sh:property
+        [
+          sh:class schema:DataCatalog ;
+          sh:path [ sh:inversePath schema:hasPart ]
+        ] ;
+      sh:targetClass skos:ConceptScheme ;
+      ont:hierarchyLevel 2 .
+
+  <level3> a sh:NodeShape ;
+      sh:property
+        [
+          sh:class skos:ConceptScheme ;
+          sh:path skos:inScheme
+        ],
+        [
+          sh:class schema:DataCatalog ;
+          sh:path (
+            skos:inScheme
+            [ sh:inversePath schema:hasPart ]
+          )
+        ] ;
+      sh:targetClass skos:Concept ;
+      ont:hierarchyLevel 3 .
+
+}
