@@ -110,9 +110,9 @@ onMounted(() => {
 			</div>
 		</div>
 		<div v-if="error"><Message severity="error">{{ error }}</Message></div>
-		<div v-if="hasMore || !data.maxReached && status != 'pending'" class="mt-4">
-			<Button variant="outline" class="ml-9" @click="loadMore">Load more...</Button>
-		</div>
+<!--		<div v-if="hasMore || !data.maxReached && status != 'pending'" class="mt-4">-->
+<!--			<Button variant="outline" class="ml-9" @click="loadMore">Load more...</Button>-->
+<!--		</div>-->
 	</div>
 	<Loading :class="`ml-9 ${hasMore || !data?.maxReached ? 'mt-4' : ''}`" v-if="status == 'pending'" variant="concept" />
 </template>

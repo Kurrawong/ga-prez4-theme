@@ -1,3 +1,4 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 PREFIX altr-ext: <http://www.w3.org/ns/dx/connegp/altr-ext#>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -81,6 +82,23 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
         sh:property [
             sh:path [
                 sh:union (
+                    schema:status
+                    dcat:theme
+                )
+            ]
+        ] ;
+    .
+
+    prez:FacetProfile
+        a prof:Profile, prez:ListingProfile, sh:NodeShape ;
+        dcterms:title "Custom Facet Profile" ;
+        dcterms:description "A custom facet profile" ;
+        dcterms:identifier "ga-facet"^^xsd:token ;
+        sh:property [
+            sh:path [
+                sh:union (
+                    rdf:type
+                    skos:inScheme
                     schema:status
                     dcat:theme
                 )

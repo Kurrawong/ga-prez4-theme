@@ -1,20 +1,28 @@
 <script lang="ts" setup>
 import { dumpNodeArray } from "prez-lib";
+import {Search, X} from "lucide-vue-next";
 
 const appConfig = useAppConfig();
 const route = useRoute();
 const { globalProfiles } = useGlobalProfiles();
 
-const urlPath = ref(useGetInitialPageUrl());
+const urlPath = ref(useGetInitialPageUrl() + (route.query?.order_by ? "" : `&${new URLSearchParams({
+	order_by: "http://www.w3.org/2004/02/skos/core#prefLabel"
+})}`));
 const apiEndpoint = useGetPrezAPIEndpoint();
 const { status, error, data } = useGetList(apiEndpoint, urlPath);
 
 const { getPageUrl, pagination } = usePageInfo(data);
 
 const apiUrl = (apiEndpoint + urlPath.value).split("?")[0];
+
+const orderBy = ref(route.query.order_by as string || "label");
+const orderByDirection = ref(route.query.order_by_direction as string || "ASC");
+
+const q = ref(route.query?.q || "");
+
 const currentProfile = computed(() => data.value ? data.value.profiles.find(p => p.current) : undefined);
 const currentFacetProfile = route.query.facet_profile?.toString() || undefined;
-
 
 const header = computed(() => {
 	const lastParent = data.value && data.value.parents?.length > 0
@@ -22,9 +30,50 @@ const header = computed(() => {
 	return lastParent ? appConfig.nameSubstitutions?.[lastParent] || lastParent : "";
 });
 
+function searchList(event: SubmitEvent) {
+	const {page, ...query} = route.query;
+	navigateTo({
+		query: {
+			...query,
+			q: q.value,
+		},
+	});
+}
+
 // when a new page is navigated to
 watch(() => route.fullPath, () => {
-	urlPath.value = getPageUrl();
+	if (orderBy.value === "label") {
+		urlPath.value = getPageUrl() + "&" + new URLSearchParams({
+			order_by: "http://www.w3.org/2004/02/skos/core#prefLabel"
+		}).toString();
+	} else {
+		urlPath.value = getPageUrl();
+	}
+});
+
+watch(orderBy, (newValue, oldValue) => {
+	if (newValue !== oldValue) {
+		navigateTo({
+			...route,
+			query: {
+				...route.query,
+				order_by: newValue === "label" ? undefined : newValue,
+			}
+		});
+	}
+});
+
+watch(orderByDirection, (newValue, oldValue) => {
+	if (newValue !== oldValue) {
+		navigateTo({
+			...route,
+			query: {
+				...route.query,
+				order_by: orderBy.value === "label" ? undefined : route.query?.order_by,
+				order_by_direction: newValue,
+			}
+		});
+	}
 });
 </script>
 
@@ -51,7 +100,26 @@ watch(() => route.fullPath, () => {
 		<template #default>
 			<slot :data="data" :status="status">
 
-				<slot name="top" :data="data" :status="status"></slot>
+				<slot name="top" :data="data" :status="status">
+					<form method="get" class="mb-4" @submit.prevent="searchList">
+						<ButtonGroup>
+							<InputGroup>
+								<InputGroupInput type="search" name="q" v-model="q" placeholder="Search..." />
+								<InputGroupAddon>
+									<Search class="size-4" />
+								</InputGroupAddon>
+								<InputGroupAddon align="inline-end">
+									<InputGroupButton type="button" size="icon-sm" variant="link" class="text-muted-foreground hover:text-foreground" @click="q = ''">
+										<X class="size-4" />
+									</InputGroupButton>
+								</InputGroupAddon>
+							</InputGroup>
+							<Button type="submit">
+								<Search class="size-4" />
+							</Button>
+						</ButtonGroup>
+					</form>
+				</slot>
 
 				<slot v-if="error" name="message">
 					<Message severity="error">{{ error }}</Message>
@@ -69,7 +137,14 @@ watch(() => route.fullPath, () => {
 					        :profile="globalProfiles[currentFacetProfile]"
 					/>
 
-					<ItemList v-if="globalProfiles && currentProfile" :fields="globalProfiles?.[currentProfile?.uri || '']" :list="data.data" :key="urlPath" />
+					<ItemList
+						v-if="globalProfiles && currentProfile"
+						:fields="globalProfiles?.[currentProfile?.uri || '']"
+						:list="data.data"
+						:key="urlPath"
+						v-model:sortBy="orderBy"
+						v-model:sortDirection="orderByDirection"
+					/>
 					<Loading v-else />
 
 					<slot name="pagination" :data="data" :pagination="pagination">

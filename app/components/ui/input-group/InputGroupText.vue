@@ -8,15 +8,12 @@ const props = defineProps<{
 </script>
 
 <template>
-  <td
-    data-slot="table-cell"
-    :class="
-      cn(
-        'p-4 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
-        props.class,
-      )
-    "
+  <span
+    :class="cn(
+      'text-muted-foreground flex items-center gap-2 text-sm [&_svg]:pointer-events-none [&_svg:not([class*=\'size-\'])]:size-4',
+      props.class,
+    )"
   >
     <slot />
-  </td>
+  </span>
 </template>

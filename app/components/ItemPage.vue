@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { X, Search } from "lucide-vue-next";
 import { applyProfileToItem, dumpNodeArray, getTopConceptsUrl, SYSTEM_PREDICATES, type PrezConceptSchemeNode, type PrezDataItem, type PrezProperties, type PrezFocusNode } from "prez-lib";
 
 const appConfig = useAppConfig();
@@ -7,6 +8,7 @@ const { globalProfiles } = useGlobalProfiles();
 const route = useRoute();
 const { getPageUrl } = usePageInfo();
 const urlPath = ref(getPageUrl());
+const q = ref("");
 const apiEndpoint = useGetPrezAPIEndpoint();
 const { status, error, data } = useGetItem(apiEndpoint, urlPath);
 const isConceptScheme = computed(() => data.value?.data.rdfTypes?.find(n => n.value == SYSTEM_PREDICATES.skosConceptScheme));
@@ -80,6 +82,10 @@ const hiddenProperties: string[] = [
 	"http://www.w3.org/2004/02/skos/core#prefLabel",
 	"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
 ];
+
+function searchConcepts(event: SubmitEvent) {
+	navigateTo(route.path + `/items?q=${q.value}`);
+}
 
 // Watch for changes in both globalProfiles and currentProfile
 // Apply profile to item uses the current profile to order properties
@@ -164,6 +170,8 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
 	                            <ItemTable
 		                            :term="data.data"
 		                            :key="urlPath + globalProfiles?.length + currentProfile?.uri"
+		                            :renderHtml="runtimeConfig.public.prezAutoDetectHtml"
+		                            :renderMarkdown="runtimeConfig.public.prezAutoDetectMarkdown"
 		                            :shownProperties="shownProperties"
 		                            :extraProperties="extraProperties"
 		                            :hiddenProperties="hiddenProperties"
@@ -192,6 +200,24 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
                             <slot name="item-concepts" :data="data" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
                                 <div class="mt-6" v-if="isConceptScheme && topConceptsUrl != ''">
                                     <p><b>Concept Hierarchy</b></p>
+	                                <form method="get" @submit.prevent="searchConcepts">
+		                                <ButtonGroup>
+			                                <InputGroup>
+				                                <InputGroupInput type="search" name="q" v-model="q" placeholder="Search concepts..." />
+				                                <InputGroupAddon>
+					                                <Search class="size-4" />
+				                                </InputGroupAddon>
+				                                <InputGroupAddon align="inline-end">
+					                                <InputGroupButton type="button" size="icon-sm" variant="link" class="text-muted-foreground hover:text-foreground" @click="q = ''">
+						                                <X class="size-4" />
+					                                </InputGroupButton>
+				                                </InputGroupAddon>
+			                                </InputGroup>
+			                                <Button type="submit">
+				                                <Search class="size-4" />
+			                                </Button>
+		                                </ButtonGroup>
+	                                </form>
                                     <div class="mt-4">
                                         <ConceptHierarchy
                                             :base-url="apiEndpoint" 
