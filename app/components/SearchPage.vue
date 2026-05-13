@@ -21,8 +21,14 @@ watch(() => route.fullPath, () => {
 
 const inSearchMode = computed(() => (route.query?.q || '').length > 0);
 
-watch(inSearchMode, (newValue) => {
-	if (newValue && !route.query.facet_profile) {
+watch([inSearchMode, () => route.query.facet_profile], ([newInSearchMode, newFacet]) => {
+	if (newInSearchMode && !newFacet) {
+		navigateTo(route.fullPath + "&facet_profile=ga-facet");
+	}
+});
+
+onBeforeMount(() => {
+	if (inSearchMode.value) {
 		navigateTo(route.fullPath + "&facet_profile=ga-facet");
 	}
 });
@@ -46,7 +52,7 @@ watch(inSearchMode, (newValue) => {
 				                            <Search class="size-5" />
 			                            </InputGroupAddon>
 			                            <InputGroupAddon align="inline-end">
-				                            <InputGroupButton type="button" size="icon-sm" variant="link" class="text-muted-foreground hover:text-foreground" @click="q = ''">
+				                            <InputGroupButton type="button" size="icon-sm" variant="link" class="text-muted-foreground hover:text-foreground" @click="q = ''; navigateTo('/search')">
 					                            <X class="size-5" />
 				                            </InputGroupButton>
 			                            </InputGroupAddon>

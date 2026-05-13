@@ -32,6 +32,7 @@ const shownProperties = computed(() => {
 			"http://www.w3.org/2004/02/skos/core#exactMatch",
 			"http://www.w3.org/2004/02/skos/core#closeMatch",
 			"http://www.w3.org/2004/02/skos/core#definition",
+			"https://schema.org/image",
 			"http://www.w3.org/2004/02/skos/core#altLabel",
 			"https://schema.org/status",
 			"http://www.w3.org/2004/02/skos/core#historyNote",
