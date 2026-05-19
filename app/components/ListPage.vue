@@ -22,7 +22,7 @@ const orderByDirection = ref(route.query.order_by_direction as string || "ASC");
 const q = ref(route.query?.q || "");
 
 const currentProfile = computed(() => data.value ? data.value.profiles.find(p => p.current) : undefined);
-const currentFacetProfile = route.query.facet_profile?.toString() || undefined;
+const currentFacetProfile = computed(() => route.query?.facet_profile?.toString());
 
 const header = computed(() => {
 	const lastParent = data.value && data.value.parents?.length > 0
@@ -73,6 +73,18 @@ watch(orderByDirection, (newValue, oldValue) => {
 				order_by_direction: newValue,
 			}
 		});
+	}
+});
+
+watch(() => route.query.facet_profile, (newValue) => {
+	if (!newValue) {
+		navigateTo(route.fullPath + "?facet_profile=ga-facet");
+	}
+});
+
+onBeforeMount(() => {
+	if (!route.query?.facet_profile) {
+		navigateTo(route.fullPath + "?facet_profile=ga-facet");
 	}
 });
 </script>

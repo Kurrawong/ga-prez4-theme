@@ -1,4 +1,3 @@
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 PREFIX altr-ext: <http://www.w3.org/ns/dx/connegp/altr-ext#>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -83,7 +82,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
             sh:path [
                 sh:union (
                     schema:status
-                    dcat:theme
+                    schema:keywords
                 )
             ]
         ] ;
@@ -100,7 +99,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
                     rdf:type
                     skos:inScheme
                     schema:status
-                    dcat:theme
+                    schema:keywords
                 )
             ]
         ] ;

@@ -28,7 +28,7 @@ watch([inSearchMode, () => route.query.facet_profile], ([newInSearchMode, newFac
 });
 
 onBeforeMount(() => {
-	if (inSearchMode.value) {
+	if (inSearchMode.value && !route.query?.facet_profile) {
 		navigateTo(route.fullPath + "&facet_profile=ga-facet");
 	}
 });
