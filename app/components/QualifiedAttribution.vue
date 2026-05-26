@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type {PrezTerm} from "prez-lib";
 import type {HTMLAttributes} from "vue";
+import type {PrezTerm, PrezProperty, PrezBlankNode} from "prez-lib";
 
 const props = defineProps<{
 	term: PrezTerm;
@@ -11,11 +11,18 @@ const props = defineProps<{
 }>();
 
 const role = computed(() => {
-	return props.term.properties['http://www.w3.org/ns/prov#hadRole'].objects[0];
+	const predicate: PrezProperty = props.term.properties['http://www.w3.org/ns/prov#hadRole'] || props.term.properties['http://www.w3.org/ns/dcat#hadRole'];
+	return predicate.objects[0];
 });
 
 const agent = computed(() => {
-	return props.term.properties['http://www.w3.org/ns/prov#agent'].objects[0].properties['https://schema.org/name'].objects[0];
+	const predicate: PrezProperty = props.term.properties['https://schema.org/agent'] || props.term.properties['http://www.w3.org/ns/prov#agent'];
+	const node: PrezTerm = predicate.objects[0]!;
+	if (node.termType === "BlankNode") {
+		return (node as PrezBlankNode).properties['https://schema.org/name'].objects[0] || "";
+	} else {
+		return node;
+	}
 });
 </script>
 

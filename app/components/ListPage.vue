@@ -109,6 +109,10 @@ onBeforeMount(() => {
 			</slot>
 		</template>
 
+		<template #profiles>
+			<ProfileSelector :key="status" :apiUrl="apiUrl" :loading="status == 'pending'" :profiles="data?.profiles" />
+		</template>
+
 		<template #default>
 			<slot :data="data" :status="status">
 
@@ -170,10 +174,5 @@ onBeforeMount(() => {
 
 			<slot name="bottom" :data="data" :status="status"></slot>
 		</template>
-
-		<template #sidepanel>
-			<ItemProfiles :key="status" :apiUrl="apiUrl" :loading="status == 'pending'" :profiles="data?.profiles" />
-		</template>
-
 	</NuxtLayout>
 </template>

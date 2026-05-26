@@ -99,10 +99,7 @@ const linkClass = props.class ? defaultClasses + ' ' + props.class : defaultClas
 	                <slot />
 	            </span>
 	            <template v-if="secondaryUrl && !hideSecondaryLink">
-	                <a v-if="isSecondaryExtLink" :href="secondaryUrl" :target="props.target" :rel="props.rel" :class="linkClass">
-	                    <ExternalLink class="size-4" />
-	                </a>
-	                <NuxtLink v-else :to="secondaryUrl" :class="linkClass">
+	                <NuxtLink v-if="!isSecondaryExtLink" :to="secondaryUrl" :class="linkClass">
 	                    <MoveRight class="size-4" />
 	                </NuxtLink>
 	            </template>
@@ -126,10 +123,7 @@ const linkClass = props.class ? defaultClasses + ' ' + props.class : defaultClas
 		                <slot />
 		            </span>
 					<Button v-if="secondaryUrl && !hideSecondaryLink" variant="outline" size="icon" asChild>
-						<a v-if="isSecondaryExtLink" :href="secondaryUrl" :target="props.target" :rel="props.rel" :class="linkClass">
-							<ExternalLink class="size-4" />
-						</a>
-						<NuxtLink v-else :to="secondaryUrl" :class="linkClass">
+						<NuxtLink v-if="!isSecondaryExtLink" :to="secondaryUrl" :class="linkClass">
 							<MoveRight class="size-4" />
 						</NuxtLink>
 					</Button>

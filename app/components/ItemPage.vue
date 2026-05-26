@@ -133,6 +133,10 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
 		    </div>
 	    </template>
 
+	    <template #profiles>
+		    <ProfileSelector :key="status" :objectUri="data?.data.value" :apiUrl="apiUrl" :loading="status == 'pending'" :profiles="data?.profiles" />
+	    </template>
+
         <template #default>
             <slot :data="data" :status="status" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl">
 
@@ -236,12 +240,5 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
                 <slot name="bottom" :data="data" :status="status" :is-concept-scheme="isConceptScheme" :top-concepts-url="topConceptsUrl"></slot>
             </slot>
         </template>
-
-        <template #sidepanel>
-            <slot name="profiles" :data="data" :apiUrl="apiUrl" :status="status">
-                <ItemProfiles :key="status" :objectUri="(route.query.uri as string)" :apiUrl="apiUrl" :loading="status == 'pending'" :profiles="data?.profiles" />
-            </slot>
-        </template>
-
     </NuxtLayout>
 </template>
