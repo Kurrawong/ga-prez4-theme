@@ -90,7 +90,7 @@ function canSelectProfile(profile: PrezProfileHeader): boolean {
 					</Button>
 				</HoverCardTrigger>
 				<HoverCardContent class="text-sm p-3">
-					Help text about profiles & link to profiles resources
+					Select different views of the data, some of which are formalised as '<a href="https://w3c.github.io/dx-connegp/connegp/#dfn-data-profile" target="_blank">profiles</a>'.
 				</HoverCardContent>
 			</HoverCard>
 		</div>
