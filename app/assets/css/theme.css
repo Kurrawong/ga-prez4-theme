@@ -1,0 +1,28 @@
+body {
+    color: var(--color-secondary);
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+
+a:not(.bg-primary):not(.btn) {
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: none !important;
+}
+
+thead th {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+}
+
+thead th a {
+    color: var(--color-primary-foreground) !important;
+}
