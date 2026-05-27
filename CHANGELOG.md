@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.3.0...v1.4.0) (2026-05-27)
+
+
+### Features
+
+* fixed table overflow, fixed facets on consecutive searches, clear button now clears search ([3cb482d](https://github.com/Kurrawong/ga-prez4-theme/commit/3cb482dcd753339fbd544ea9396b17437896d2cd))
+* upgraded to Prez UI 4.3.0, first iteration of current GA requirements ([e1b64da](https://github.com/Kurrawong/ga-prez4-theme/commit/e1b64da171e61506e8fbe0af2a624b68fca63f46))
+
 # [1.3.0](https://github.com/Kurrawong/ga-prez4-theme/compare/v1.2.2...v1.3.0) (2025-08-18)
 
 
