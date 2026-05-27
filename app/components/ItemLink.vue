@@ -86,26 +86,26 @@ const linkClass = props.class ? defaultClasses + ' ' + props.class : defaultClas
 	<component :is="!hideTitle && props.title ? InfoCard : 'slot'" :link="!!url">
 		<template #default>
 			<slot name="wrapper" :url="url" :title="props.title" :secondaryUrl="secondaryUrl" :target="target">
-	        <span class="inline-flex gap-1 items-center">
-	            <template v-if="url && !props.hidePrimaryLink">
-	                <a v-if="isExtLink" :class="linkClass" :href="url" :target="props.target" :rel="props.rel">
-	                    <slot />
-	                </a>
-	                <NuxtLink v-else :class="linkClass" :to="url">
-	                    <slot />
-	                </NuxtLink>
-	            </template>
-	            <span v-else>
-	                <slot />
-	            </span>
-	            <template v-if="secondaryUrl && !hideSecondaryLink">
-	                <NuxtLink v-if="!isSecondaryExtLink" :to="secondaryUrl" :class="linkClass">
-	                    <MoveRight class="size-4" />
-	                </NuxtLink>
-	            </template>
+		        <span class="inline-flex gap-1 items-center">
+		            <template v-if="url && !props.hidePrimaryLink">
+		                <a v-if="isExtLink" :class="linkClass" :href="url" :target="props.target" :rel="props.rel">
+		                    <slot />
+		                </a>
+		                <NuxtLink v-else :class="linkClass" :to="url">
+		                    <slot />
+		                </NuxtLink>
+		            </template>
+		            <span v-else>
+		                <slot />
+		            </span>
+		            <template v-if="secondaryUrl && !hideSecondaryLink">
+		                <NuxtLink v-if="!isSecondaryExtLink" :to="secondaryUrl" :class="linkClass">
+		                    <MoveRight class="size-4" />
+		                </NuxtLink>
+		            </template>
 
-	            <CopyButton v-if="props.copyLink" iconOnly :value="typeof(copyLink) == 'string' ? copyLink : url || secondaryUrl" size="icon" variant="outline" />
-	        </span>
+		            <CopyButton v-if="props.copyLink" iconOnly :value="typeof(copyLink) == 'string' ? copyLink : url || secondaryUrl" size="icon" variant="outline" />
+		        </span>
 			</slot>
 		</template>
 		<template v-if="!hideTitle && props.title" #info>
@@ -123,7 +123,10 @@ const linkClass = props.class ? defaultClasses + ' ' + props.class : defaultClas
 		                <slot />
 		            </span>
 					<Button v-if="secondaryUrl && !hideSecondaryLink" variant="outline" size="icon" asChild>
-						<NuxtLink v-if="!isSecondaryExtLink" :to="secondaryUrl" :class="linkClass">
+						<a v-if="isSecondaryExtLink" :href="secondaryUrl" :target="props.target" :rel="props.rel" :class="linkClass">
+							<ExternalLink class="size-4" />
+						</a>
+						<NuxtLink v-else :to="secondaryUrl" :class="linkClass">
 							<MoveRight class="size-4" />
 						</NuxtLink>
 					</Button>
