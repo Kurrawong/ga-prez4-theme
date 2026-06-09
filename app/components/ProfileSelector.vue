@@ -9,8 +9,12 @@ const props = defineProps<{
 	objectUri?: string;
 	profiles?: PrezProfileHeader[];
 	loading?: boolean;
+	isVocab?: boolean;
+	label?: string;
 	class?: HTMLAttributes["class"];
 }>();
+
+const apiEndpoint = useGetPrezAPIEndpoint();
 
 const MEDIATYPE_LABELS: Record<string, string> = {
 	"text/turtle": "Turtle",
@@ -28,10 +32,31 @@ const MEDIATYPE_LABELS: Record<string, string> = {
 	"text/csv": "CSV",
 };
 
+const dropdownListProfile: PrezProfileHeader = {
+	title: "Drop-Down List",
+	uri: "https://w3id.org/profile/dd",
+	token: "dd",
+	description: "A simple data model to provide items for form drop-down lists. The basic information is an ID & name tuple and the optional extra value is an item's parent. For vocabularies, this is then URI, prefLabel or URI, prefLabel & broader Concept",
+	default: false,
+	current: false,
+	mediatypes: [
+		{
+			title: "CSV",
+			mediatype: "text/csv",
+			default: false,
+		},
+		{
+			title: "JSON",
+			mediatype: "application/json",
+			default: true,
+		},
+	],
+};
+
 const uriComponent = props.objectUri ? `uri=${encodeURIComponent(props.objectUri)}&` : '';
 
 // alternates profile last, then alphabetical
-const sortedProfiles = computed(() => props.profiles?.sort((a, b) => {
+const sortedProfiles = computed(() => [...(props.profiles || []), ...(props.isVocab ? [dropdownListProfile] : [])].sort((a, b) => {
 	if (a.token === "altr-ext:alt-profile") {
 		return 1;
 	} else if (b.token === "altr-ext:alt-profile") {
@@ -76,6 +101,61 @@ function transformMediatypes(mediatypes: PrezMediatype[]): ({annotated?: PrezMed
 
 function canSelectProfile(profile: PrezProfileHeader): boolean {
 	return profile.mediatypes.some(m => m.mediatype === "text/anot+turtle");
+}
+
+async function getDropdownList() {
+	const query = `PREFIX sdo: <https://schema.org/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT ?iri ?label ?definition ?altLabel ?broader ?status
+WHERE {
+  BIND(<${props.objectUri}> AS ?cs)
+  ?iri a skos:Concept ;
+  	skos:inScheme ?cs ;
+   	skos:prefLabel ?label .
+  OPTIONAL {
+  	?iri skos:altLabel ?altLabel .
+  }
+  OPTIONAL {
+  	?iri skos:broader ?broader .
+  }
+  OPTIONAL {
+  	?iri skos:definition ?definition .
+  }
+  OPTIONAL {
+  	?iri sdo:status ?status .
+  }
+} ORDER BY STR(?label)`;
+	const results = await sparqlQuery(`${apiEndpoint}/sparql`, query);
+	// multi-hierarchy for multiple broaders? - broader: string[]
+	return results;
+}
+
+function generateCSV(list: Record<string, any>[], columns: string[]): string {
+	let content = columns.join(",") + "\n";
+	list.forEach(c => {
+		content += columns.map(col => col in c ? (c[col].includes(",") ? `"${c[col]}"` : c[col]) : "").join(",") + "\n";
+	});
+	return content;
+}
+
+const { data: dropdownList, refresh } = await useLazyAsyncData(`${props.objectUri}-dd`, () => getDropdownList(), {
+	immediate: false,
+	default: () => [],
+});
+
+async function downloadDropdownList(mediatype: "json" | "csv") {
+	if (dropdownList.value.length === 0) {
+		await refresh();
+	}
+	const content = mediatype === "json" ? JSON.stringify(dropdownList.value) : generateCSV(dropdownList.value, ["iri", "label", "definition", "altLabel", "broader", "status"]);
+
+	const blob = new Blob([content], { type: mediatype === "json" ? "application/json" : "text/csv" });
+	const link = document.createElement("a");
+	link.href = URL.createObjectURL(blob);
+	const filename = props.label || `${props.objectUri}-dd`;
+	link.download = `${filename}.${mediatype}`;
+	link.click();
+	URL.revokeObjectURL(link.href);
 }
 </script>
 
@@ -132,7 +212,10 @@ function canSelectProfile(profile: PrezProfileHeader): boolean {
 								<DropdownMenuGroup>
 									<DropdownMenuLabel class="text-xs text-muted-foreground">Download Formats</DropdownMenuLabel>
 									<div v-for="mediatype in transformMediatypes(profile.mediatypes)" class="flex flex-row">
-										<DropdownMenuItem class="!text-popover-foreground hover:!no-underline grow" asChild>
+										<DropdownMenuItem v-if="props.isVocab && profile.token === 'dd'" class="grow" @click="downloadDropdownList(mediatype.title.toLowerCase())">
+											{{ getMediatypeLabel(mediatype) }}
+										</DropdownMenuItem>
+										<DropdownMenuItem v-else class="!text-popover-foreground hover:!no-underline grow" asChild>
 											<a
 												:href="`${apiUrl}?${uriComponent}_profile=${encodeURIComponent(profile.token)}&_mediatype=${encodeURIComponent(mediatype.mediatype)}`"
 												target="_blank"
@@ -152,20 +235,22 @@ function canSelectProfile(profile: PrezProfileHeader): boolean {
 										</DropdownMenuItem>
 									</div>
 								</DropdownMenuGroup>
-								<DropdownMenuSeparator />
-								<DropdownMenuGroup>
-									<DropdownMenuLabel class="text-xs text-muted-foreground">Profile Information</DropdownMenuLabel>
-									<DropdownMenuItem asChild>
-										<NuxtLink :to="`/profiles/${profile.token}`" class="!text-popover-foreground hover:!no-underline">
-											View profile
-										</NuxtLink>
-									</DropdownMenuItem>
-									<DropdownMenuItem asChild>
-										<a :href="profile.uri" target="_blank" class="!text-popover-foreground hover:!no-underline">
-											Go to profile URI
-										</a>
-									</DropdownMenuItem>
-								</DropdownMenuGroup>
+								<template v-if="profile.token !== 'dd'">
+									<DropdownMenuSeparator />
+									<DropdownMenuGroup>
+										<DropdownMenuLabel class="text-xs text-muted-foreground">Profile Information</DropdownMenuLabel>
+										<DropdownMenuItem asChild>
+											<NuxtLink :to="`/profiles/${profile.token}`" class="!text-popover-foreground hover:!no-underline">
+												View profile
+											</NuxtLink>
+										</DropdownMenuItem>
+										<DropdownMenuItem asChild>
+											<a :href="profile.uri" target="_blank" class="!text-popover-foreground hover:!no-underline">
+												Go to profile URI
+											</a>
+										</DropdownMenuItem>
+									</DropdownMenuGroup>
+								</template>
 							</DropdownMenuSubContent>
 						</DropdownMenuSub>
 					</DropdownMenuContent>

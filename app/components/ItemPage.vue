@@ -134,7 +134,7 @@ watch([() => globalProfiles.value, () => currentProfile.value], ([newGlobalProfi
 	    </template>
 
 	    <template #profiles>
-		    <ProfileSelector :key="status" :objectUri="data?.data.value" :apiUrl="apiUrl" :loading="status == 'pending'" :profiles="data?.profiles" />
+		    <ProfileSelector :key="status" :objectUri="data?.data.value" :apiUrl="apiUrl" :loading="status == 'pending'" :profiles="data?.profiles" :isVocab="isConceptScheme" :label="data?.data.label?.value" />
 	    </template>
 
         <template #default>
