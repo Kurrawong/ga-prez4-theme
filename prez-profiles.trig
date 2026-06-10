@@ -3,7 +3,9 @@ PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX prez: <https://prez.dev/>
 PREFIX prof: <http://www.w3.org/ns/dx/prof/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <https://schema.org/>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -83,6 +85,47 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
                 sh:union (
                     schema:status
                     schema:keywords
+                )
+            ]
+        ] ;
+    .
+
+    <https://w3id.org/profile/vocpub>
+        a prof:Profile, prez:ObjectProfile, sh:NodeShape ;
+        dcterms:title "VocPub" ;
+        dcterms:description """This is a profile of the taxonomy data model SKOS - i.e. SKOS with additional constraints. It defines some compulsory properties for SKOS's ConceptScheme, Concept and Collection classes and ensures that certain relationships between them are present, e.g. topConceptOf & inScheme linking Concepts to ConceptSchemes. It also requires goes a bit beyond 'pure' SKOS by ensuring that Concepts indicate the ConceptScheme they are defined in, which may be different to the ConceptScheme they re presented in. This allows VocPub-valid SKOS Concepts to be re-used in multiple of vocabularies efficiently.
+
+    This profile is used for multiple Australian government and international vocabularies and is entirely generic, i.e. the additional constraints are not Australian or government-specific but just ensure certain technical model capabilities in the data."""@en ;
+        dcterms:identifier "vocpub"^^xsd:token ;
+        altr-ext:hasResourceFormat
+            "application/ld+json",
+            "application/rdf+xml",
+            "text/turtle" ;
+        altr-ext:hasDefaultResourceFormat "text/turtle" ;
+        altr-ext:constrainsClass skos:ConceptScheme, skos:Concept, skos:Collection, prez:CQLFilterResult ;
+        sh:property [
+            sh:path [
+                sh:union (
+                    skos:prefLabel
+                    skos:definition
+                    schema:createdDate
+                    schema:modifiedDate
+                    schema:creator
+                    prov:qualifiedAttribution
+                    skos:historyNote
+                    skos:hasTopConcept
+                    skos:topConceptOf
+                    schema:status
+                    prov:qualifiedDerivation
+                    schema:keywords
+                    schema:copyrightHolder
+                    skos:inScheme
+                    rdfs:isDefinedBy
+                    skos:member
+                    skos:narrower
+                    skos:broader
+                    skos:notation
+                    schema:version
                 )
             ]
         ] ;
