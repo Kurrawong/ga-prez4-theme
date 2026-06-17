@@ -106,7 +106,7 @@ function canSelectProfile(profile: PrezProfileHeader): boolean {
 async function getDropdownList() {
 	const query = `PREFIX sdo: <https://schema.org/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT ?iri ?label ?definition ?altLabel ?broader ?status
+SELECT ?iri ?label ?definition ?altLabel ?broader ?status ?citation
 WHERE {
   BIND(<${props.objectUri}> AS ?cs)
   ?iri a skos:Concept ;
@@ -124,6 +124,9 @@ WHERE {
   OPTIONAL {
   	?iri sdo:status ?status .
   }
+  OPTIONAL {
+  	?iri sdo:citation ?citation .
+  }
 } ORDER BY STR(?label)`;
 	const results = await sparqlQuery(`${apiEndpoint}/sparql`, query);
 	// multi-hierarchy for multiple broaders? - broader: string[]
@@ -133,7 +136,16 @@ WHERE {
 function generateCSV(list: Record<string, any>[], columns: string[]): string {
 	let content = columns.join(",") + "\n";
 	list.forEach(c => {
-		content += columns.map(col => col in c ? (c[col].includes(",") ? `"${c[col]}"` : c[col]) : "").join(",") + "\n";
+		content += columns.map(col => {
+			if (col in c) {
+				let value = c[col];
+				const matches = Array.from((value as string).matchAll(/("[^"]+")+/g).map(m => m.slice(1))).flat();
+				matches.forEach(m => {
+					value = value.replace(m, `"${m}"`)
+				});
+				return value.includes(",") ? `"${value}"` : value;
+			} else return "";
+		}).join(",") + "\n";
 	});
 	return content;
 }
@@ -147,7 +159,7 @@ async function downloadDropdownList(mediatype: "json" | "csv") {
 	if (dropdownList.value.length === 0) {
 		await refresh();
 	}
-	const content = mediatype === "json" ? JSON.stringify(dropdownList.value) : generateCSV(dropdownList.value, ["iri", "label", "definition", "altLabel", "broader", "status"]);
+	const content = mediatype === "json" ? JSON.stringify(dropdownList.value) : generateCSV(dropdownList.value, ["iri", "label", "definition", "altLabel", "broader", "status", "citation"]);
 
 	const blob = new Blob([content], { type: mediatype === "json" ? "application/json" : "text/csv" });
 	const link = document.createElement("a");
