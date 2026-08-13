@@ -111,7 +111,7 @@ const linkClass = props.class ? defaultClasses + ' ' + props.class : defaultClas
 		<template v-if="!hideTitle && props.title" #info>
 			<div class="flex flex-col gap-2">
 				<div class="flex flex-row items-center justify-between">
-					<template v-if="url && !props.hidePrimaryLink">
+					<template v-if="url">
 						<a v-if="isExtLink" :class="linkClass" :href="url" :target="props.target" :rel="props.rel">
 							<slot />
 						</a>

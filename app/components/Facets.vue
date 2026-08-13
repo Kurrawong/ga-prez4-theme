@@ -86,7 +86,7 @@ function clearFilters() {
 			<DropdownMenu v-for="facet in computedProfile" :key="facet.facetName.value">
 				<DropdownMenuTrigger as-child>
 					<Button variant="outline" size="sm" class="inline-flex items-center">
-						<Term :term="facet.facetName" />
+						<Term :term="facet.facetName" hidePrimaryLink />
 						<ChevronDown class="ml-1 size-4 text-muted-foreground" aria-hidden="true" />
 					</Button>
 				</DropdownMenuTrigger>
@@ -103,7 +103,7 @@ function clearFilters() {
 						>
                              <span class="truncate pr-2">
                                 <slot :term="value.term">
-                                    <Term :term="value.term" />
+                                    <Term :term="value.term" hidePrimaryLink />
                                 </slot>
                             </span>
 							<span class="text-muted-foreground bg-muted rounded-full px-1.5 py-0 text-xs font-medium ml-2 shrink-0">
